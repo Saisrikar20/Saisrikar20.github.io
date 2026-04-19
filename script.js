@@ -1,43 +1,10 @@
-try {
-    lucide.createIcons();
-} catch (e) {
-    console.warn('Lucide icons failed to load', e);
-}
-
-// Custom Cursor
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorRing = document.querySelector('.cursor-ring');
-const hoverTargets = document.querySelectorAll('.hover-target, a, button');
-
-if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        // Fast moving dot
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        // Slower trailing ring
-        cursorRing.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 150, fill: "forwards" });
-    });
-
-    hoverTargets.forEach(target => {
-        target.addEventListener('mouseenter', () => {
-            cursorRing.classList.add('cursor-hover');
-        });
-        target.addEventListener('mouseleave', () => {
-            cursorRing.classList.remove('cursor-hover');
-        });
-    });
-}
-
-// Dark Mode Toggle
+// Dark Mode Toggle — runs immediately since script is at bottom of body
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
+
+function safeCreateIcons() {
+    try { lucide.createIcons(); } catch(e) {}
+}
 
 function updateThemeColorMeta(theme) {
     const metaThemeColor = document.getElementById('theme-color-meta');
@@ -46,65 +13,70 @@ function updateThemeColorMeta(theme) {
     }
 }
 
-// Check local storage for theme
+function updateThemeIcon(theme) {
+    if (!themeToggle) return;
+    themeToggle.innerHTML = theme === 'dark'
+        ? '<i data-lucide="sun"></i>'
+        : '<i data-lucide="moon"></i>';
+    safeCreateIcons();
+}
+
+// Apply saved or system theme BEFORE paint (script is deferred to end of body)
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
     html.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
     updateThemeColorMeta(savedTheme);
+    updateThemeIcon(savedTheme);
 } else {
-    // Check system preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
-        html.setAttribute('data-theme', 'dark');
-        updateThemeIcon('dark');
-        updateThemeColorMeta('dark');
-    } else {
-        updateThemeColorMeta('light');
-    }
+    const initialTheme = prefersDark ? 'dark' : 'light';
+    html.setAttribute('data-theme', initialTheme);
+    updateThemeColorMeta(initialTheme);
+    updateThemeIcon(initialTheme);
 }
 
-themeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-    updateThemeColorMeta(newTheme);
-});
+// Toggle on click
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        updateThemeColorMeta(newTheme);
+    });
+}
 
-function updateThemeIcon(theme) {
-    if (theme === 'dark') {
-        themeToggle.innerHTML = '<i data-lucide="sun"></i>';
-    } else {
-        themeToggle.innerHTML = '<i data-lucide="moon"></i>';
-    }
-    try {
-        lucide.createIcons();
-    } catch(e) {}
+// Init Lucide Icons
+safeCreateIcons();
+
+// Custom Cursor — desktop only
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
+
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    window.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+        cursorRing.animate({
+            left: `${e.clientX}px`,
+            top: `${e.clientY}px`
+        }, { duration: 150, fill: "forwards" });
+    });
+
+    document.querySelectorAll('.hover-target, a, button').forEach(target => {
+        target.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
+        target.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
+    });
 }
 
 // Navbar Shrink on Scroll
 const navbar = document.getElementById('navbar');
-
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
 
 // Scroll Reveal Animations
-const sections = document.querySelectorAll('section');
-
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.15
-};
-
 const sectionObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -112,16 +84,16 @@ const sectionObserver = new IntersectionObserver((entries, observer) => {
             observer.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, { threshold: 0.1 });
 
-sections.forEach(section => {
-    section.classList.add('reveal'); // Dynamically add class so it degrades gracefully
+document.querySelectorAll('section').forEach(section => {
+    section.classList.add('reveal');
     sectionObserver.observe(section);
 });
 
-// Page load trigger for hero
+// Hero visible immediately
 setTimeout(() => {
     const home = document.getElementById('home');
-    if(home) home.classList.add('visible');
+    if (home) home.classList.add('visible');
 }, 100);
 
