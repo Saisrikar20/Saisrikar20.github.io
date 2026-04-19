@@ -9,45 +9,58 @@ const cursorDot = document.querySelector('.cursor-dot');
 const cursorRing = document.querySelector('.cursor-ring');
 const hoverTargets = document.querySelectorAll('.hover-target, a, button');
 
-window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
 
-    // Fast moving dot
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
+        // Fast moving dot
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
 
-    // Slower trailing ring
-    cursorRing.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 150, fill: "forwards" });
-});
-
-hoverTargets.forEach(target => {
-    target.addEventListener('mouseenter', () => {
-        cursorRing.classList.add('cursor-hover');
+        // Slower trailing ring
+        cursorRing.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 150, fill: "forwards" });
     });
-    target.addEventListener('mouseleave', () => {
-        cursorRing.classList.remove('cursor-hover');
+
+    hoverTargets.forEach(target => {
+        target.addEventListener('mouseenter', () => {
+            cursorRing.classList.add('cursor-hover');
+        });
+        target.addEventListener('mouseleave', () => {
+            cursorRing.classList.remove('cursor-hover');
+        });
     });
-});
+}
 
 // Dark Mode Toggle
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
+
+function updateThemeColorMeta(theme) {
+    const metaThemeColor = document.getElementById('theme-color-meta');
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', theme === 'dark' ? '#000000' : '#F9FAFB');
+    }
+}
 
 // Check local storage for theme
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
     html.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
+    updateThemeColorMeta(savedTheme);
 } else {
     // Check system preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (prefersDark) {
         html.setAttribute('data-theme', 'dark');
         updateThemeIcon('dark');
+        updateThemeColorMeta('dark');
+    } else {
+        updateThemeColorMeta('light');
     }
 }
 
@@ -58,6 +71,7 @@ themeToggle.addEventListener('click', () => {
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcon(newTheme);
+    updateThemeColorMeta(newTheme);
 });
 
 function updateThemeIcon(theme) {
