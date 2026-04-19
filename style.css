@@ -940,9 +940,10 @@ footer {
 
 @media screen and (max-width: 768px) {
   .nav-links { display: none; } /* Could add hamburger, but keeping minimal */
+  .navbar, .navbar.scrolled { width: 95%; padding: 0.8rem 1.5rem; }
   .hero h1 { font-size: 2.5rem; }
-  .hero-actions { flex-direction: column; }
-  .btn { width: 100%; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn { width: 100%; }
 }
 
 @media screen and (max-width: 480px) {
