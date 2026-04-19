@@ -939,21 +939,37 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-  .nav-links { display: none; } /* Could add hamburger, but keeping minimal */
-  .navbar, .navbar.scrolled { width: 95%; padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-actions .btn-primary { display: none; } /* Hide 'Let's Talk' on mobile */
+  .navbar, .navbar.scrolled {
+    width: 92%;
+    padding: 0.85rem 1.4rem;
+    top: 1.2rem;
+  }
   .hero h1 { font-size: 2.5rem; }
   .hero-actions { flex-direction: column; width: 100%; }
-  .hero-actions .btn { width: 100%; }
+  .hero-actions .btn { width: 100%; text-align: center; justify-content: center; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .learning-grid { grid-template-columns: 1fr; }
+  .quick-links-grid { grid-template-columns: 1fr 1fr; }
+  .certs-top { grid-template-columns: 1fr; }
 }
 
 @media screen and (max-width: 480px) {
   section { padding: 5rem 0; }
   .hero { padding-top: 8rem; }
-  .hero h1 { font-size: 2rem; }
-  .section-title { font-size: 2rem; margin-bottom: 2rem; }
-  .container { padding: 0 1.5rem; }
-  .nav-logo { font-size: 1.25rem; }
-  .nav-actions { gap: 1rem; }
-  .btn { padding: 0.75rem 1.2rem; font-size: 0.85rem; }
+  .hero h1 { font-size: 1.9rem; line-height: 1.15; }
+  .hero p { font-size: 1rem; }
+  .section-title { font-size: 1.75rem; margin-bottom: 2rem; }
+  .container { padding: 0 1.25rem; }
+  .nav-logo { font-size: 1.2rem; }
+  .nav-actions { gap: 0.75rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .quick-links-grid { grid-template-columns: 1fr; }
   .footer-content { flex-direction: column; text-align: center; gap: 0.5rem; }
+  .cert-img { height: 220px; }
+  .timeline-item { padding-left: 55px; }
+  .timeline-header { gap: 1.2rem; }
+  .timeline-header .btn { width: 100%; text-align: center; justify-content: center; }
 }
