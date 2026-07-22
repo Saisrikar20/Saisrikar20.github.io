@@ -40,7 +40,6 @@
             <li><a href="#about" class="hover-target">About</a></li>
             <li><a href="#projects" class="hover-target">Projects</a></li>
             <li><a href="#skills" class="hover-target">Skills</a></li>
-            <li><a href="#contact" class="hover-target">Contact</a></li>
         </ul>
         <div class="nav-actions">
             <button class="theme-toggle hover-target" id="theme-toggle" aria-label="Toggle Dark Mode">
@@ -78,9 +77,7 @@
                         <p>I'm a B.Tech student specializing in AI & Data Science (Honours in Cybersecurity), curious
                             about how intelligent systems learn, adapt, and scale. I build precise, efficient solutions
                             grounded in strong technical fundamentals.</p>
-                        <p>Particularly interested in fintech — where AI, data science, and cybersecurity intersect. My
-                            focus is on developing intelligent secure architectures that detect fraud and operate
-                            reliably in high-stakes environments.</p>
+                        <p>Curious about the intersection of machine learning, cybersecurity, and intelligent software architecture — focused on building reliable, secure systems that perform dependably under real-world conditions.</p>
                     </div>
                     <div class="about-cards">
                         <div class="info-card">
@@ -101,7 +98,7 @@
                             <div class="info-icon"><i data-lucide="code"></i></div>
                             <div class="info-content">
                                 <h4>Focus</h4>
-                                <p>AI in Fintech & Security</p>
+                                <p>AI & Secure Systems</p>
                             </div>
                         </div>
                     </div>
@@ -115,7 +112,7 @@
                 <h2 class="section-title">Selected Work</h2>
                 <div class="projects-grid">
 
-                    <!-- Project 1 -->
+                    <!-- Project 1: Voice Emotion Recognition -->
                     <div class="project-card hover-target">
                         <div class="project-title">
                             <h3>Voice Emotion Recognition</h3>
@@ -130,77 +127,86 @@
                             <span class="tech-pill">Scikit-learn</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="hover-target"><i data-lucide="external-link"
+                            <a href="https://risonanza.streamlit.app/" target="_blank" class="hover-target"><i data-lucide="external-link"
                                     style="width: 16px; height: 16px;"></i> Live Demo</a>
-                            <a href="#" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i>
+                            <a href="https://github.com/Saisrikar20" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i>
                                 Source</a>
                         </div>
                     </div>
 
-                    <!-- Project 2 -->
+                    <!-- Project 2: ml-projects-portfolio -->
                     <div class="project-card hover-target">
                         <div class="project-title">
-                            <h3>Xpensetracker</h3>
-                            <i data-lucide="pie-chart"></i>
+                            <h3>ml-projects-portfolio</h3>
+                            <i data-lucide="brain"></i>
                         </div>
-                        <p class="project-desc">Personal expense tracker with glassmorphism UI, Telegram bot with OCR
-                            receipt parsing</p>
+                        <p class="project-desc">Hands-on ML projects built and debugged from scratch.</p>
+
+                        <!-- Expandable Subprojects Dropdown -->
+                        <details class="subproject-dropdown">
+                            <summary class="hover-target">
+                                <span>Explore Projects (2)</span>
+                                <i data-lucide="chevron-down" class="dropdown-icon"></i>
+                            </summary>
+                            <div class="subproject-content">
+                                <div class="subproject-item">
+                                    <h5><i data-lucide="radar" style="width:14px; height:14px; color:var(--accent);"></i> Sonar Rock-vs-Mine Classifier</h5>
+                                    <p>UCI Sonar dataset — iterated through 8 model versions from a broken baseline to a tuned SVM (~83% CV / ~90.5% test accuracy). README documents iteration history.</p>
+                                </div>
+                                <div class="subproject-item">
+                                    <h5><i data-lucide="activity" style="width:14px; height:14px; color:var(--accent);"></i> Diabetes Prediction</h5>
+                                    <p>Pima Indians dataset — sklearn pipeline work, fixed data leakage, correct StandardScaler placement inside pipelines, StratifiedKFold CV, GridSearchCV over SVM hyperparameters (~77% CV accuracy).</p>
+                                </div>
+                            </div>
+                        </details>
+
                         <div class="project-tech">
-                            <span class="tech-pill">Flask</span>
-                            <span class="tech-pill">SQLite</span>
-                            <span class="tech-pill">Telegram API</span>
-                            <span class="tech-pill">OCR</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Scikit-Learn</span>
+                            <span class="tech-pill">ML Pipelines</span>
+                            <span class="tech-pill">SVM</span>
+                            <span class="tech-pill">GridSearchCV</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="hover-target"><i data-lucide="external-link"
-                                    style="width: 16px; height: 16px;"></i> Live Demo</a>
-                            <a href="#" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i>
-                                Source</a>
+                            <a href="https://github.com/Saisrikar20/ml-projects-portfolio" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
                         </div>
                     </div>
 
-                    <!-- Project 3 -->
+                    <!-- Project 3: neetcode-submissions -->
                     <div class="project-card hover-target">
                         <div class="project-title">
-                            <h3>Movie & TV Tracker</h3>
-                            <i data-lucide="film"></i>
+                            <h3>neetcode-submissions</h3>
+                            <i data-lucide="code-2"></i>
                         </div>
-                        <p class="project-desc">Tinder-style swipe interface for discovering movies and shows powered by
-                            the TMDB API.</p>
+                        <p class="project-desc">DSA practice repo, Python, working through Blind 75 / NeetCode 150. Organized by topic (Arrays & Hashing, Two Pointers, Binary Search, etc.) with a README tracking progress honestly.</p>
                         <div class="project-tech">
-                            <span class="tech-pill">React Native</span>
-                            <span class="tech-pill">Expo</span>
-                            <span class="tech-pill">Flask</span>
-                            <span class="tech-pill">TMDB API</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Algorithms</span>
+                            <span class="tech-pill">Data Structures</span>
+                            <span class="tech-pill">NeetCode 150</span>
+                            <span class="tech-pill">Blind 75</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="hover-target"><i data-lucide="external-link"
-                                    style="width: 16px; height: 16px;"></i> Live Demo</a>
-                            <a href="#" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i>
-                                Source</a>
+                            <a href="https://github.com/Saisrikar20/neetcode-submissions" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
                         </div>
                     </div>
 
-                    <!-- Project 4 (In Progress) -->
-                    <div class="project-card hover-target in-progress-card">
-                        <div class="project-badge">IN DEVELOPMENT</div>
+                    <!-- Project 4: PortScanner -->
+                    <div class="project-card hover-target">
                         <div class="project-title">
-                            <h3>Secret Fintech Architecture</h3>
-                            <i data-lucide="lock"></i>
+                            <h3>PortScanner</h3>
+                            <i data-lucide="network"></i>
                         </div>
-                        <p class="project-desc">Currently conceptualizing a high-performance, secure transaction
-                            pipeline using advanced cryptography and Next.js.</p>
+                        <p class="project-desc">Basic multithreaded TCP port scanner in Python.</p>
                         <div class="project-tech">
-                            <span class="tech-pill">Next.js</span>
-                            <span class="tech-pill">AWS</span>
-                            <span class="tech-pill">Cryptography</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Networking</span>
+                            <span class="tech-pill">Multithreading</span>
+                            <span class="tech-pill">TCP Sockets</span>
+                            <span class="tech-pill">Cybersecurity</span>
                         </div>
-                        <div class="project-links disabled-links">
-                            <span class="hover-target" style="opacity: 0.5; cursor: not-allowed;"><i
-                                    data-lucide="external-link" style="width: 16px; height: 16px;"></i> Not Yet
-                                Default</span>
-                            <span class="hover-target" style="opacity: 0.5; cursor: not-allowed;"><i
-                                    class="bx bxl-github" style="font-size: 16px;"></i> Private</span>
+                        <div class="project-links">
+                            <a href="https://github.com/Saisrikar20/PortScanner" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
                         </div>
                     </div>
 
@@ -221,6 +227,7 @@
                         </div>
                         <div class="skill-tags">
                             <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Java</span>
                             <span class="skill-tag">C</span>
                             <span class="skill-tag">JavaScript</span>
                             <span class="skill-tag">SQL</span>
@@ -231,37 +238,43 @@
                     <div class="skill-quadrant">
                         <div class="skill-header">
                             <i data-lucide="layers"></i>
-                            <h3>Frameworks</h3>
+                            <h3>Frameworks & Libraries</h3>
                         </div>
                         <div class="skill-tags">
                             <span class="skill-tag">Flask</span>
-                            <span class="skill-tag">Tailwind CSS</span>
                             <span class="skill-tag">Streamlit</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Scikit-learn</span>
+                            <span class="skill-tag">Librosa</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">Matplotlib</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-quadrant">
+                        <div class="skill-header">
+                            <i data-lucide="shield-check"></i>
+                            <h3>Security</h3>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Kali Linux</span>
                         </div>
                     </div>
 
                     <div class="skill-quadrant">
                         <div class="skill-header">
                             <i data-lucide="wrench"></i>
-                            <h3>Tools</h3>
+                            <h3>Tools & IDEs</h3>
                         </div>
                         <div class="skill-tags">
                             <span class="skill-tag">Git</span>
                             <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">PyCharm</span>
+                            <span class="skill-tag">IntelliJ</span>
+                            <span class="skill-tag">DataGrip</span>
                             <span class="skill-tag">Linux</span>
                             <span class="skill-tag">SQLite</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-quadrant">
-                        <div class="skill-header">
-                            <i data-lucide="lightbulb"></i>
-                            <h3>Soft Skills</h3>
-                        </div>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Problem Solving</span>
-                            <span class="skill-tag">Fast Learner</span>
-                            <span class="skill-tag">Team Collaboration</span>
                         </div>
                     </div>
 
@@ -271,24 +284,24 @@
                 <h2 class="section-title" style="margin-top: 8rem;">What I'm Learning Now</h2>
                 <div class="learning-grid">
                     <div class="learning-card hover-target">
-                        <div class="learning-icon pulse"><i data-lucide="book-open"></i></div>
+                        <div class="learning-icon pulse"><i data-lucide="brain"></i></div>
                         <div class="learning-info">
-                            <h4>Advanced Cryptography</h4>
-                            <p>Deep dive into modern encryption algorithms and secure architectures.</p>
+                            <h4>ML Theory Deep-Dive</h4>
+                            <p>Building instinctive understanding of core ML (linear regression mechanics, gradient descent, bias-variance tradeoff, cross-validation) through active recall, not memorization.</p>
                         </div>
                     </div>
                     <div class="learning-card hover-target">
-                        <div class="learning-icon pulse"><i data-lucide="cloud"></i></div>
+                        <div class="learning-icon pulse"><i data-lucide="workflow"></i></div>
                         <div class="learning-info">
-                            <h4>Cloud Deployment (AWS)</h4>
-                            <p>Scaling data science and web applications using serverless AWS tools.</p>
+                            <h4>MLOps</h4>
+                            <p>Model deployment, pipelines, and taking ML projects from notebook to production.</p>
                         </div>
                     </div>
                     <div class="learning-card hover-target">
-                        <div class="learning-icon pulse"><i data-lucide="layout"></i></div>
+                        <div class="learning-icon pulse"><i data-lucide="cpu"></i></div>
                         <div class="learning-info">
-                            <h4>Next.js Architecture</h4>
-                            <p>Building high-performance, scalable full-stack React applications.</p>
+                            <h4>AI Engineering</h4>
+                            <p>Working through the AI Engineering from Scratch curriculum, focused on agent engineering and AI safety/security topics.</p>
                         </div>
                     </div>
                 </div>
