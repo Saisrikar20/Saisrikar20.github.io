@@ -835,7 +835,7 @@ section {
   width: 50%;
 }
 
-.timeline-item::after {
+.timeline > .timeline-item::after {
   content: '';
   position: absolute;
   width: 16px;
@@ -855,11 +855,12 @@ section {
   100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
 }
 
-.left { left: 0; }
-.right { left: 50%; }
+.timeline > .left { left: 0; }
+.timeline > .right { left: 50%; }
 
-.right::after {
-  left: -8px;
+.timeline > .right::after {
+  left: -9px;
+  right: auto;
 }
 
 .timeline-content {
@@ -1009,8 +1010,8 @@ section {
   .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .timeline::after { left: 31px; }
   .timeline-item { width: 100%; padding-left: 70px; padding-right: 0; }
-  .timeline-item::after { left: 23px; }
-  .right { left: 0; }
+  .timeline > .timeline-item::after { left: 23px; }
+  .timeline > .right { left: 0; }
   .timeline-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
 }
 
