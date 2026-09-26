@@ -1,0 +1,173 @@
+%-------------------------
+% ATS-Friendly Resume in LaTeX
+% Based on Jake's Resume Template
+% Compiled with pdflatex
+%-------------------------
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+
+% Page Setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1.2in}
+\addtolength{\topmargin}{-0.68in}
+\addtolength{\textheight}{1.38in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+\setlength{\footskip}{4pt}
+
+% Section Formatting
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+% Custom Commands
+\newcommand{\resumeItem}[1]{\item\small{#1 \vspace{-2pt}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+  \textbf{\Huge \scshape Sai Srikar B} \\ \vspace{2pt}
+  \small
+  Chennai, Tamil Nadu, India \\ \vspace{1pt}
+  \href{mailto:saisrikarB@outlook.com}{\underline{saisrikarB@outlook.com}} $|$
+  \href{https://linkedin.com/in/sai-srikar-b-54b1b8359}{\underline{linkedin.com/in/sai-srikar-b}} $|$
+  \href{https://github.com/Saisrikar20}{\underline{github.com/Saisrikar20}} $|$
+  \href{https://saisrikar20.github.io}{\underline{saisrikar20.github.io}}
+\end{center}
+
+%-----------PROFESSIONAL SUMMARY-----------
+\section{Professional Summary}
+  \small{AI \& Data Science undergraduate (Cybersecurity Honours, SGPA 8.98/10) with hands-on expertise in Machine Learning, Applied NLP, Local RAG architectures, and AI Security. Experienced in architecting production-grade ML pipelines, decoupled RAG platforms, and secure AI workspaces with prompt-injection defense mechanisms. Proven ability to optimize inference latency, preserve 100\% data privacy, and deliver robust software. Seeking a \textbf{Machine Learning} or \textbf{Cybersecurity Engineering Internship}.}
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+    \textbf{Languages}{: Python, Java, C, SQL, PL/SQL, HTML/CSS, JavaScript} \\
+    \textbf{AI / ML \& NLP}{: Machine Learning, Deep Learning, Natural Language Processing, RAG, Scikit-learn, PyTorch, Librosa, NumPy, Pandas, Polars, LangChain, LangGraph, Ollama} \\
+    \textbf{Frameworks \& Databases}{: FastAPI, Flask, Streamlit, ChromaDB, SQLite, PostgreSQL} \\
+    \textbf{Security, DevOps \& Tools}{: Kali Linux, Wireshark, Ethical Hacking, Network Security, SIEM, Prompt Injection Defense, Vulnerability Assessment, Docker, MLOps, Git, Linux, Hack The Box}
+  }}
+\end{itemize}
+
+%-----------LEADERSHIP & EXPERIENCE-----------
+\section{Leadership \& Technical Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {DEVS (REC) -- Official Technical Club of REC}{Aug 2026 -- Present}
+      {AI / ML Associate}{Chennai, India}
+      \resumeItemListStart
+        \resumeItem{Selected as AI/ML Associate through competitive multi-stage coding benchmarks and technical evaluations to contribute to core club software initiatives.}
+        \resumeItem{Co-developed and shipped \textbf{HackMentor AI} with club leads, engineering security-by-design guardrails, managing GitHub fork/PR workflows, and resolving pre-deployment runtime bugs.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Technical Projects}
+  \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {HackMentor AI -- AI Hackathon Evaluation Workspace \& Security Guardrails}{{\textit{DEVS REC Production Project}}}
+      \resumeItemListStart
+        \resumeItem{Accelerated hackathon scoring throughput by \textbf{$\sim$40\%} across 15+ judging panels and college accounts by architecting an AI-assisted evaluation engine with structured schema extraction.}
+        \resumeItem{Neutralized adversarial scoring manipulation with \textbf{0 security breaches} across 30+ simulated direct and indirect injection vectors via multi-stage input sanitization and system prompt anchoring.}
+        \resumeItem{Collaborated in an agile cross-functional team with Fullstack and DevOps leads, managing GitHub fork/PR workflows, security audits, and live event deployments.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {DocMind -- Decoupled Document AI \& Local RAG Platform}{{\href{https://github.com/Saisrikar20/DocMind}{\underline{GitHub}}}}
+      \resumeItemListStart
+        \resumeItem{Eliminated data egress risks (\textbf{100\% local privacy}) while sustaining sub-second retrieval latencies across complex multi-page PDFs using Docling layout parsing and ChromaDB vector indexing.}
+        \resumeItem{Reduced cloud API inferencing costs by \textbf{$\sim$60\%} by engineering an adaptive dual-engine router that dispatches routine tasks to local Ollama models and escalates multi-hop reasoning to NVIDIA NIM / OpenAI.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {MailShield-AI -- Offline Email Triage \& Privacy-First RAG}{{\href{https://github.com/Saisrikar20/MailShield-AI}{\underline{GitHub}}}}
+      \resumeItemListStart
+        \resumeItem{Automated real-time inbox prioritization with \textbf{$\sim$92\% classification consensus} offline without cloud telemetry by developing a dual-LLM ensemble (Phi-3 + Mistral via Ollama) and custom IMAP handlers.}
+        \resumeItem{Engineered an explainability verification layer (Inbox Explorer) delivering automated rationale citations, decision provenance, and transparent audit trails for every triaged email.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {Risonanza -- Real-Time Voice Emotion \& Stress Classifier}{{\href{https://risonanza.streamlit.app/}{\underline{Live Demo}}}}
+      \resumeItemListStart
+        \resumeItem{Built and deployed an end-to-end acoustic emotion recognition app within 24 hours, achieving \textbf{$\sim$85\% classification accuracy} with sub-300ms audio inference across 6 emotional states.}
+        \resumeItem{Streamlined speech signal processing with Librosa MFCC and Chroma feature extraction, integrated with an optimized Scikit-learn classifier into an interactive Streamlit UI.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {ML Projects Portfolio -- First-Principles Machine Learning}{{\href{https://github.com/Saisrikar20/ml-projects-portfolio}{\underline{GitHub}}}}
+      \resumeItemListStart
+        \resumeItem{Boosted classification accuracy from baseline to \textbf{$\sim$90.5\%} across 8 iterative versions on the UCI Sonar dataset by engineering SVM classifiers from scratch and eliminating pipeline data leakage.}
+        \resumeItem{Constructed reproducible Scikit-learn pipelines with StandardScaler isolation, StratifiedKFold cross-validation, and GridSearchCV hyperparameter tuning on healthcare datasets.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Rajalakshmi Engineering College, Chennai}{Jul 2025 -- Jul 2029}
+      {B.Tech in Artificial Intelligence \& Data Science (Cybersecurity Honours Track) -- SGPA: 8.98/10}{}
+    \resumeSubheading
+      {Velammal New Gen, Surapet}{Jun 2023 -- May 2025}
+      {CBSE Class 12 (Computer Science \& Mathematics) -- 472/500 (94.4\% $|$ 100\% in Computer Science)}{}
+  \resumeSubHeadingListEnd
+
+%-----------CERTIFICATIONS-----------
+\section{Certifications}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+    Google Cybersecurity Professional Certificate (Coursera) $|$
+    Ethical Hacking with Kali Linux (IBM) $|$
+    Introduction to Artificial Intelligence (LinkedIn Learning)
+  }}
+\end{itemize}
+
+%-------------------------------------------
+\end{document}
