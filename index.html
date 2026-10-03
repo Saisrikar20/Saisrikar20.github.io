@@ -13,18 +13,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap">
-    </noscript>
+        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
     <!-- Required Styles/Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -112,6 +114,26 @@
                 <h2 class="section-title">Selected Work</h2>
                 <div class="projects-grid">
 
+                    <!-- Project: DEVs P2P -->
+                    <div class="project-card hover-target">
+                        <div class="project-title">
+                            <h3>DEVs P2P</h3>
+                            <i data-lucide="graduation-cap"></i>
+                        </div>
+                        <p class="project-desc">Open-source peer-to-peer technical learning platform for DEVS REC with structured roadmaps across 5 engineering domains, interactive 3D mentor directory, curated resource library, and local progress tracking.</p>
+                        <div class="project-tech">
+                            <span class="tech-pill">TypeScript</span>
+                            <span class="tech-pill">React 19</span>
+                            <span class="tech-pill">Tailwind v4</span>
+                            <span class="tech-pill">Three.js</span>
+                            <span class="tech-pill">DEVS REC</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://learn.devsrec.com/" target="_blank" class="hover-target"><i data-lucide="external-link" style="width: 16px; height: 16px;"></i> Live Site</a>
+                            <a href="https://github.com/Saisrikar20/DEVs-P2P" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
+                        </div>
+                    </div>
+
                     <!-- Project: HackMentor AI -->
                     <div class="project-card hover-target">
                         <div class="project-title">
@@ -125,10 +147,6 @@
                             <span class="tech-pill">Prompt Defense</span>
                             <span class="tech-pill">Guardrails</span>
                             <span class="tech-pill">DEVS REC</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://lnkd.in/e2U4fD4b" target="_blank" class="hover-target"><i data-lucide="play-circle" style="width: 16px; height: 16px;"></i> Demo Reel</a>
-                            <a href="https://lnkd.in/eZK56Ghx" target="_blank" class="hover-target"><i data-lucide="external-link" style="width: 16px; height: 16px;"></i> Live App</a>
                         </div>
                     </div>
 
@@ -158,14 +176,14 @@
                             <h3>MailShield AI</h3>
                             <i data-lucide="shield-check"></i>
                         </div>
-                        <p class="project-desc">Privacy-first offline email triage engine achieving ~92% classification consensus over real-time IMAP streams via a dual-LLM ensemble (Phi-3 + Mistral via Ollama) and transparent rationale verification.</p>
+                        <p class="project-desc">AI-powered email threat detection & forensic intelligence platform built for SIH 2026. Features an 8-stage security pipeline with deterministic threat scoring, IP geolocation, investigation graph visualization, and an AI Copilot for SOC analysts.</p>
                         <div class="project-tech">
                             <span class="tech-pill">Python</span>
-                            <span class="tech-pill">Ollama</span>
-                            <span class="tech-pill">Local RAG</span>
-                            <span class="tech-pill">LLM Ensemble</span>
-                            <span class="tech-pill">IMAP</span>
-                            <span class="tech-pill">Telegram API</span>
+                            <span class="tech-pill">FastAPI</span>
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">OAuth 2.0</span>
+                            <span class="tech-pill">Digital Forensics</span>
+                            <span class="tech-pill">SIH 2026</span>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/Saisrikar20/MailShield-AI" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
@@ -231,44 +249,6 @@
                         </div>
                     </div>
 
-                    <!-- Project 3: neetcode-submissions -->
-                    <div class="project-card hover-target">
-                        <div class="project-title">
-                            <h3>neetcode-submissions</h3>
-                            <i data-lucide="code-2"></i>
-                        </div>
-                        <p class="project-desc">DSA practice repo, Python, working through Blind 75 / NeetCode 150. Organized by topic (Arrays & Hashing, Two Pointers, Binary Search, etc.) with a README tracking progress honestly.</p>
-                        <div class="project-tech">
-                            <span class="tech-pill">Python</span>
-                            <span class="tech-pill">Algorithms</span>
-                            <span class="tech-pill">Data Structures</span>
-                            <span class="tech-pill">NeetCode 150</span>
-                            <span class="tech-pill">Blind 75</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Saisrikar20/neetcode-submissions" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
-                        </div>
-                    </div>
-
-                    <!-- Project 4: PortScanner -->
-                    <div class="project-card hover-target">
-                        <div class="project-title">
-                            <h3>PortScanner</h3>
-                            <i data-lucide="network"></i>
-                        </div>
-                        <p class="project-desc">Basic multithreaded TCP port scanner in Python.</p>
-                        <div class="project-tech">
-                            <span class="tech-pill">Python</span>
-                            <span class="tech-pill">Networking</span>
-                            <span class="tech-pill">Multithreading</span>
-                            <span class="tech-pill">TCP Sockets</span>
-                            <span class="tech-pill">Cybersecurity</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/Saisrikar20/PortScanner" target="_blank" class="hover-target"><i class="bx bxl-github" style="font-size: 16px;"></i> Source</a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
@@ -289,6 +269,7 @@
                             <span class="skill-tag">Java</span>
                             <span class="skill-tag">C</span>
                             <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">TypeScript</span>
                             <span class="skill-tag">SQL</span>
                             <span class="skill-tag">PL/SQL</span>
                             <span class="skill-tag">HTML/CSS</span>
@@ -301,6 +282,8 @@
                             <h3>Frameworks & Libraries</h3>
                         </div>
                         <div class="skill-tags">
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">React</span>
                             <span class="skill-tag">FastAPI</span>
                             <span class="skill-tag">Flask</span>
                             <span class="skill-tag">Streamlit</span>
@@ -310,6 +293,8 @@
                             <span class="skill-tag">NumPy</span>
                             <span class="skill-tag">Pandas</span>
                             <span class="skill-tag">Matplotlib</span>
+                            <span class="skill-tag">LangChain</span>
+                            <span class="skill-tag">PyTorch</span>
                         </div>
                     </div>
 
@@ -319,24 +304,30 @@
                             <h3>Security</h3>
                         </div>
                         <div class="skill-tags">
+                            <span class="skill-tag">Metasploit</span>
                             <span class="skill-tag">Kali Linux</span>
+                            <span class="skill-tag">Wireshark</span>
+                            <span class="skill-tag">Nmap</span>
                         </div>
                     </div>
 
                     <div class="skill-quadrant">
                         <div class="skill-header">
                             <i data-lucide="wrench"></i>
-                            <h3>Tools & IDEs</h3>
+                            <h3>Tools & Databases</h3>
                         </div>
                         <div class="skill-tags">
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">SQLite</span>
                             <span class="skill-tag">Git</span>
                             <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Docker</span>
                             <span class="skill-tag">Ollama</span>
                             <span class="skill-tag">PyCharm</span>
                             <span class="skill-tag">IntelliJ</span>
                             <span class="skill-tag">DataGrip</span>
                             <span class="skill-tag">Linux</span>
-                            <span class="skill-tag">SQLite</span>
+                            <span class="skill-tag">VS Code</span>
                         </div>
                     </div>
 
@@ -538,8 +529,8 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+    <!-- Scripts (Compiled from script.ts with strict type-locking) -->
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,14 @@
+{
+  "name": "saisrikar-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sai Srikar B Portfolio - TypeScript with Type Locking",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
