@@ -1,15 +1,15 @@
 /**
  * Sai Srikar B — Personal Portfolio Core Script
- * Fully Type-Locked TypeScript Architecture
+ * Fully Type-Locked TypeScript Architecture (Universal Browser Script)
  */
 // ============================================================================
 // 2. TYPE-LOCKED THEME ENUMS & CONSTANTS
 // ============================================================================
-export const THEMES = {
+const THEMES = {
     LIGHT: 'light',
     DARK: 'dark',
 };
-export const THEME_CONFIG = Object.freeze({
+const THEME_CONFIG = Object.freeze({
     [THEMES.LIGHT]: Object.freeze({
         theme: THEMES.LIGHT,
         metaColor: '#FFFFFF',
@@ -21,23 +21,23 @@ export const THEME_CONFIG = Object.freeze({
         iconName: 'sun',
     }),
 });
-export const STORAGE_KEYS = {
+const STORAGE_KEYS = {
     THEME: 'theme',
 };
 // Type Guard for Theme
-export function isTheme(value) {
+function isTheme(value) {
     return value === THEMES.LIGHT || value === THEMES.DARK;
 }
 // ============================================================================
 // 3. SAFE DOM UTILITIES WITH STRICT TYPE GUARDS
 // ============================================================================
-export function getElement(idOrSelector, isId = true) {
+function getElement(idOrSelector, isId = true) {
     const element = isId
         ? document.getElementById(idOrSelector)
         : document.querySelector(idOrSelector);
     return element instanceof HTMLElement ? element : null;
 }
-export function getAllElements(selector) {
+function getAllElements(selector) {
     const nodes = document.querySelectorAll(selector);
     const elements = [];
     nodes.forEach((node) => {
@@ -47,7 +47,7 @@ export function getAllElements(selector) {
     });
     return Object.freeze(elements);
 }
-export function safeCreateIcons() {
+function safeCreateIcons() {
     try {
         if (typeof window !== 'undefined' && window.lucide?.createIcons) {
             window.lucide.createIcons();
@@ -60,7 +60,7 @@ export function safeCreateIcons() {
 // ============================================================================
 // 4. TYPE-LOCKED THEME CONTROLLER
 // ============================================================================
-export class ThemeController {
+class ThemeController {
     root;
     toggleButton;
     metaThemeColor;
@@ -114,23 +114,32 @@ export class ThemeController {
 // ============================================================================
 // 5. TYPE-LOCKED CUSTOM CURSOR CONTROLLER
 // ============================================================================
-export class CursorController {
+class CursorController {
     dot;
     ring;
-    isFinePointer;
     constructor() {
         this.dot = getElement('.cursor-dot', false);
         this.ring = getElement('.cursor-ring', false);
-        this.isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     }
     init() {
-        if (!this.isFinePointer || !this.dot || !this.ring) {
+        // If CustomCursor React component is already active, yield to it
+        if (window.__CUSTOM_CURSOR_REACT_ACTIVE__) {
+            return;
+        }
+        if (!this.dot || !this.ring) {
             return;
         }
         const dot = this.dot;
         const ring = this.ring;
+        let isVisible = false;
         window.addEventListener('mousemove', (event) => {
             const { clientX, clientY } = event;
+            if (!isVisible) {
+                isVisible = true;
+                dot.style.opacity = '1';
+                ring.style.opacity = '1';
+                document.documentElement.classList.add('has-custom-cursor');
+            }
             dot.style.left = `${clientX}px`;
             dot.style.top = `${clientY}px`;
             ring.animate({
@@ -148,7 +157,7 @@ export class CursorController {
 // ============================================================================
 // 6. TYPE-LOCKED NAVBAR CONTROLLER
 // ============================================================================
-export class NavbarController {
+class NavbarController {
     navbar;
     SCROLL_THRESHOLD = 50;
     constructor() {
@@ -166,7 +175,7 @@ export class NavbarController {
 // ============================================================================
 // 7. TYPE-LOCKED SCROLL REVEAL OBSERVER
 // ============================================================================
-export class ScrollRevealController {
+class ScrollRevealController {
     observer = null;
     INTERSECTION_THRESHOLD = 0.1;
     init() {
@@ -193,7 +202,7 @@ export class ScrollRevealController {
 // ============================================================================
 // 8. LIFECYCLE BOOTSTRAP
 // ============================================================================
-export function bootstrapApplication() {
+function bootstrapApplication() {
     const themeCtrl = new ThemeController();
     themeCtrl.init();
     safeCreateIcons();

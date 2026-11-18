@@ -1,0 +1,12 @@
+title: Voice Emotion Recognition (Risonanza)
+description: Real-time speech emotion classifier with sub-300ms audio inference and ~85% accuracy across 6 emotional states. Built and deployed under 24-hour hackathon constraints with Librosa MFCC and Scikit-learn.
+tagline: Audio ML & Signal Processing
+techStack:
+  - Python
+  - Librosa
+  - Streamlit
+  - Scikit-learn
+liveUrl: https://risonanza.streamlit.app/
+sourceUrl: https://github.com/Saisrikar20
+featured: true
+order: 5

@@ -1,0 +1,13 @@
+title: DEVs P2P
+description: Open-source peer-to-peer technical learning platform for DEVS REC with structured roadmaps across 5 engineering domains, interactive 3D mentor directory, curated resource library, and local progress tracking.
+tagline: Web Platform & Community
+techStack:
+  - TypeScript
+  - React 19
+  - Tailwind v4
+  - Three.js
+  - DEVS REC
+liveUrl: https://learn.devsrec.com/
+sourceUrl: https://github.com/Saisrikar20/DEVs-P2P
+featured: true
+order: 1

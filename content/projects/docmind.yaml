@@ -1,0 +1,14 @@
+title: DocMind
+description: Decoupled Document AI & local RAG platform ensuring 100% on-premises data isolation with sub-second retrieval. Adaptive dual-engine routing between Ollama and cloud APIs cuts inferencing costs by ~60%.
+tagline: Offline Local RAG
+techStack:
+  - Python
+  - Docling
+  - ChromaDB
+  - RAG
+  - Streamlit
+  - PyTorch
+liveUrl: ''
+sourceUrl: https://github.com/Saisrikar20/DocMind
+featured: true
+order: 3

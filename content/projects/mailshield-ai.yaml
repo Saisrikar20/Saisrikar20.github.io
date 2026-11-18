@@ -1,0 +1,14 @@
+title: MailShield AI
+description: AI-powered email threat detection & forensic intelligence platform built for SIH 2026. Features an 8-stage security pipeline with deterministic threat scoring, IP geolocation, investigation graph visualization, and an AI Copilot for SOC analysts.
+tagline: Threat Detection & Forensics
+techStack:
+  - Python
+  - FastAPI
+  - React
+  - OAuth 2.0
+  - Forensics
+  - SIH 2026
+liveUrl: ''
+sourceUrl: https://github.com/Saisrikar20/MailShield-AI
+featured: true
+order: 4

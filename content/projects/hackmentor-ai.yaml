@@ -1,0 +1,13 @@
+title: HackMentor AI
+description: AI-powered evaluation engine accelerating hackathon scoring throughput by ~40% across 15+ judging panels. Engineered security guardrails blocking prompt injection attacks with 0 breaches across 30+ adversarial vectors.
+tagline: AI Security & Guardrails
+techStack:
+  - Python
+  - AI Security
+  - Prompt Defense
+  - Guardrails
+  - DEVS REC
+liveUrl: ''
+sourceUrl: https://github.com/Saisrikar20
+featured: true
+order: 2

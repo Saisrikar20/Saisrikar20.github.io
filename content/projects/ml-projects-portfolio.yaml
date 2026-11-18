@@ -1,0 +1,13 @@
+title: ML Pipelines Portfolio
+description: "First-principles ML implementations: Sonar rock-vs-mine classifier (90.5% test accuracy) and Pima diabetes prediction with strict zero data-leakage cross-validation pipelines."
+tagline: First-Principles ML
+techStack:
+  - Python
+  - Scikit-learn
+  - ML Pipelines
+  - SVM
+  - GridSearchCV
+liveUrl: ''
+sourceUrl: https://github.com/Saisrikar20/ml-projects-portfolio
+featured: true
+order: 6

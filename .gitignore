@@ -1,5 +1,9 @@
 events.html
 preview.html
 node_modules/
+.next/
+.env
+.env*.local
 .DS_Store
 Thumbs.db
+tsconfig.tsbuildinfo

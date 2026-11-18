@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: #000000;
+  --accent: #D6544B;
+  --scrollbar-track: #F1F1F4;
+  --scrollbar-thumb: #D1D5DB;
+  --scrollbar-thumb-hover: #D6544B;
+}
+
+[data-theme="dark"],
+.dark {
+  --scrollbar-track: #08080C;
+  --scrollbar-thumb: #262630;
+  --scrollbar-thumb-hover: #D6544B;
+}
+
+::selection {
+  background-color: rgba(214, 84, 75, 0.3);
+  color: #FFFFFF;
+}
+
+/* Custom Themed Scrollbar (Modern Standard) */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Webkit (Chrome, Edge, Safari, Brave) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+  border: 2px solid var(--scrollbar-track);
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+
+/* Custom Cursor Styles */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.15s ease, width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent);
+}
+
+.cursor-hover {
+  width: 48px !important;
+  height: 48px !important;
+  background-color: rgba(214, 84, 75, 0.15) !important;
+  border-color: rgba(214, 84, 75, 0.5) !important;
+}
+
+/* Hide default cursor when custom cursor is active */
+html.has-custom-cursor,
+html.has-custom-cursor body,
+html.has-custom-cursor a,
+html.has-custom-cursor button,
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select,
+html.has-custom-cursor .hover-target {
+  cursor: none !important;
+}
+
+
+/* Navbar Active & Mobile Drawer Styles */
+.nav-links a.active {
+  color: var(--accent);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0.35rem;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-toggle:hover {
+  color: var(--accent);
+}
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 5.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 480px;
+  background: var(--nav-bg, rgba(20, 20, 25, 0.95));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  padding: 1rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  animation: mobileNavFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mobileNavFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+  background: var(--hover-bg, rgba(255, 255, 255, 0.08));
+  color: var(--accent, #D6544B);
+}
+
+.mobile-nav-dot {
+  color: var(--accent, #D6544B);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.mobile-nav-cta {
+  margin-top: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .nav-links {
+    display: none !important;
+  }
+  .nav-actions .nav-cta-desktop {
+    display: none !important;
+  }
+  .mobile-nav-toggle {
+    display: flex !important;
+  }
+}

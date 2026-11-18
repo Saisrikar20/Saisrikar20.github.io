@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume &amp; CV Downloads &mdash; Sai Srikar B</title>
+    
+    <!-- Primary Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons & Fonts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <style>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .download-page {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem 1.5rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .back-nav {
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.25s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .eyebrow-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(79, 70, 229, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 100px;
+            padding: 0.35rem 0.95rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            margin: 0 0 0.8rem 0;
+            line-height: 1.15;
+        }
+
+        .page-header h1 span {
+            color: var(--accent);
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .download-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.85rem;
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(12px);
+        }
+
+        .download-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 16px 36px rgba(79, 70, 229, 0.18);
+        }
+
+        .download-card.highlight {
+            border-color: rgba(79, 70, 229, 0.5);
+            background: linear-gradient(180deg, rgba(79, 70, 229, 0.08) 0%, var(--card-bg) 100%);
+        }
+
+        .card-top {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag-pill {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            padding: 0.28rem 0.75rem;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .tag-500kb {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .tag-compact {
+            background: rgba(14, 165, 233, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(14, 165, 233, 0.4);
+        }
+
+        .size-indicator {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            background: var(--hover-bg);
+            padding: 0.25rem 0.65rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-meta {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .card-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            margin: 0 0 1.2rem 0;
+        }
+
+        .card-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.86rem;
+            color: var(--text-muted);
+        }
+
+        .card-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.45rem;
+        }
+
+        .card-features li i {
+            color: var(--accent);
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.65rem;
+        }
+
+        .btn-dl {
+            background: var(--accent);
+            color: #ffffff;
+            border: 1px solid var(--accent);
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            font-family: var(--font-sans, 'Chakra Petch', sans-serif);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 16px rgba(214, 84, 75, 0.3);
+        }
+
+        .btn-dl:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(214, 84, 75, 0.5);
+            background: #BF433B;
+        }
+
+        .btn-view {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            font-family: var(--font-sans, 'Chakra Petch', sans-serif);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .btn-view:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--card-bg);
+        }
+
+        /* Quick Info Callout Box */
+        .portal-tips {
+            background: var(--hover-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.85rem;
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        .tips-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(79, 70, 229, 0.15);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tips-content h4 {
+            margin: 0 0 0.4rem 0;
+            font-size: 1.1rem;
+        }
+
+        .tips-content p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* Quick preview modal container */
+        .preview-pane-wrap {
+            margin-top: 3.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .preview-pane-wrap.active {
+            display: block;
+        }
+
+        .preview-pane-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 750px;
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            background: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="download-page">
+        <!-- Top Nav -->
+        <div class="back-nav">
+            <a href="index.html" class="back-link">
+                <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Back to Portfolio
+            </a>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">
+                Sai Srikar B &bull; B.Tech AI &amp; DS
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+            <div class="eyebrow-pill">
+                <i data-lucide="file-check" style="width: 14px; height: 14px;"></i> Direct Downloads
+            </div>
+            <h1>Download <span>Resume &amp; CV</span></h1>
+            <p>Select the version tailored for your job portal requirements. Every version is formatted with Jake's ATS-friendly typography, 100% valid ISO PDF structures, and quantified Google XYZ metrics.</p>
+        </div>
+
+        <!-- Grid of Download Cards -->
+        <div class="cards-grid">
+
+            <!-- Card 1: 500KB Comprehensive CV (Recommended) -->
+            <div class="download-card highlight">
+                <div class="card-top">
+                    <div class="card-badge-row">
+                        <span class="tag-pill tag-500kb">
+                            <i data-lucide="shield-check" style="width: 12px; height: 12px;"></i> Portal-Ready (~500 KB)
+                        </span>
+                        <span class="size-indicator">485 KB</span>
+                    </div>
+                    <h2 class="card-title">
+                        <i data-lucide="award" style="color: var(--accent); width: 22px; height: 22px;"></i> Comprehensive CV
+                    </h2>
+                    <div class="card-meta">
+                        <span><i data-lucide="layers" style="width: 14px; height: 14px;"></i> 2 Pages</span>
+                        <span><i data-lucide="file-text" style="width: 14px; height: 14px;"></i> ISO Compliant</span>
+                    </div>
+                    <p class="card-desc">Comprehensive Academic &amp; Technical Curriculum Vitae calibrated specifically for portals requiring documents up to 500 KB (TCS iON, Superset, campus portals).</p>
+                    <ul class="card-features">
+                        <li><i data-lucide="check"></i> Complete B.Tech coursework (DSA, OS, DBMS, Security)</li>
+                        <li><i data-lucide="check"></i> 100/100 Computer Science CBSE Centum Award</li>
+                        <li><i data-lucide="check"></i> Full architectures for HackMentor AI, DocMind &amp; MailShield</li>
+                        <li><i data-lucide="check"></i> Verified Google &amp; IBM credentials</li>
+                    </ul>
+                </div>
+                <div class="card-actions">
+                    <a href="./cv_500kb.pdf" download="Sai_Srikar_B_CV_500KB.pdf" class="btn-dl">
+                        <i data-lucide="download" style="width: 18px; height: 18px;"></i> Download CV
+                    </a>
+                    <button class="btn-view" onclick="openPreview('./cv_500kb.pdf', 'Comprehensive CV (485 KB)')">
+                        <i data-lucide="eye" style="width: 16px; height: 16px;"></i> Preview
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 2: 500KB 1-Page Resume -->
+            <div class="download-card">
+                <div class="card-top">
+                    <div class="card-badge-row">
+                        <span class="tag-pill tag-500kb">
+                            <i data-lucide="zap" style="width: 12px; height: 12px;"></i> 1-Page Calibrated (~500 KB)
+                        </span>
+                        <span class="size-indicator">485 KB</span>
+                    </div>
+                    <h2 class="card-title">
+                        <i data-lucide="briefcase" style="color: #38bdf8; width: 22px; height: 22px;"></i> Industry Resume
+                    </h2>
+                    <div class="card-meta">
+                        <span><i data-lucide="layers" style="width: 14px; height: 14px;"></i> 1 Page</span>
+                        <span><i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> Google XYZ Formula</span>
+                    </div>
+                    <p class="card-desc">Concise, fast-skim single-page engineering resume calibrated to 485 KB for company portals enforcing strict ~500 KB constraints.</p>
+                    <ul class="card-features">
+                        <li><i data-lucide="check"></i> Strictly single-page industry layout</li>
+                        <li><i data-lucide="check"></i> Quantified impact (~40% throughput, 0 breaches)</li>
+                        <li><i data-lucide="check"></i> DEVS (REC) AI/ML Associate engineering role</li>
+                        <li><i data-lucide="check"></i> Direct GitHub repo &amp; live demo hyperlinks</li>
+                    </ul>
+                </div>
+                <div class="card-actions">
+                    <a href="./resume_500kb.pdf" download="Sai_Srikar_B_Resume_500KB.pdf" class="btn-dl">
+                        <i data-lucide="download" style="width: 18px; height: 18px;"></i> Download Resume
+                    </a>
+                    <button class="btn-view" onclick="openPreview('./resume_500kb.pdf', 'Industry Resume (485 KB)')">
+                        <i data-lucide="eye" style="width: 16px; height: 16px;"></i> Preview
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 3: Standard Compact CV (138 KB) -->
+            <div class="download-card">
+                <div class="card-top">
+                    <div class="card-badge-row">
+                        <span class="tag-pill tag-compact">
+                            <i data-lucide="feather" style="width: 12px; height: 12px;"></i> Compact Version
+                        </span>
+                        <span class="size-indicator">138 KB</span>
+                    </div>
+                    <h2 class="card-title">
+                        <i data-lucide="file-text" style="color: var(--accent); width: 22px; height: 22px;"></i> 2-Page CV (Compact)
+                    </h2>
+                    <div class="card-meta">
+                        <span><i data-lucide="layers" style="width: 14px; height: 14px;"></i> 2 Pages</span>
+                        <span><i data-lucide="cpu" style="width: 14px; height: 14px;"></i> Lightweight</span>
+                    </div>
+                    <p class="card-desc">Full 2-page academic Curriculum Vitae at standard compact file size. Best for email attachments or portals with low upload bandwidth.</p>
+                    <ul class="card-features">
+                        <li><i data-lucide="check"></i> Full 2-page academic details &amp; coursework</li>
+                        <li><i data-lucide="check"></i> Lightweight 138 KB file size</li>
+                        <li><i data-lucide="check"></i> Instant fast upload on any mobile device</li>
+                    </ul>
+                </div>
+                <div class="card-actions">
+                    <a href="./cv.pdf" download="Sai_Srikar_B_CV.pdf" class="btn-dl">
+                        <i data-lucide="download" style="width: 18px; height: 18px;"></i> Download
+                    </a>
+                    <button class="btn-view" onclick="openPreview('./cv.pdf', 'Compact 2-Page CV (138 KB)')">
+                        <i data-lucide="eye" style="width: 16px; height: 16px;"></i> Preview
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 4: Standard 1-Page Resume (137 KB) -->
+            <div class="download-card">
+                <div class="card-top">
+                    <div class="card-badge-row">
+                        <span class="tag-pill tag-compact">
+                            <i data-lucide="feather" style="width: 12px; height: 12px;"></i> Compact Version
+                        </span>
+                        <span class="size-indicator">137 KB</span>
+                    </div>
+                    <h2 class="card-title">
+                        <i data-lucide="check-circle-2" style="color: #10b981; width: 22px; height: 22px;"></i> 1-Page Resume (Compact)
+                    </h2>
+                    <div class="card-meta">
+                        <span><i data-lucide="layers" style="width: 14px; height: 14px;"></i> 1 Page</span>
+                        <span><i data-lucide="zap" style="width: 14px; height: 14px;"></i> Standard ATS</span>
+                    </div>
+                    <p class="card-desc">Standard 1-page resume used on the main portfolio website. Lightweight, ultra-fast download, zero-bloat formatting.</p>
+                    <ul class="card-features">
+                        <li><i data-lucide="check"></i> Standard portfolio resume</li>
+                        <li><i data-lucide="check"></i> Ultra-compact 137 KB</li>
+                        <li><i data-lucide="check"></i> Maximum ATS parser compatibility</li>
+                    </ul>
+                </div>
+                <div class="card-actions">
+                    <a href="./resume.pdf" download="Sai_Srikar_B_Resume.pdf" class="btn-dl">
+                        <i data-lucide="download" style="width: 18px; height: 18px;"></i> Download
+                    </a>
+                    <button class="btn-view" onclick="openPreview('./resume.pdf', 'Standard 1-Page Resume (137 KB)')">
+                        <i data-lucide="eye" style="width: 16px; height: 16px;"></i> Preview
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Portal Tips Box -->
+        <div class="portal-tips">
+            <div class="tips-icon">
+                <i data-lucide="info" style="width: 22px; height: 22px;"></i>
+            </div>
+            <div class="tips-content">
+                <h4>Portal Upload Guidance</h4>
+                <p>When applying to portals like <strong>TCS iON, Superset, Infosys Springboard, or Cognizant</strong>, select <strong>Sai_Srikar_B_CV_500KB.pdf</strong> if the portal specifies <em>"Max 500 KB"</em> or <em>"File size between 200KB - 500KB"</em>. At 485 KB, it is safely within the threshold while ensuring all academic and engineering coursework is displayed.</p>
+            </div>
+        </div>
+
+        <!-- Interactive PDF Preview Drawer -->
+        <div id="previewPane" class="preview-pane-wrap">
+            <div class="preview-pane-header">
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 600;" id="previewTitle">
+                    <i data-lucide="file-text" style="color: var(--accent); width: 18px; height: 18px;"></i> PDF Preview
+                </div>
+                <button onclick="closePreview()" class="btn-view" style="padding: 0.4rem 0.85rem; font-size: 0.85rem; cursor: pointer;">
+                    <i data-lucide="x" style="width: 14px; height: 14px;"></i> Close Preview
+                </button>
+            </div>
+            <iframe id="pdfFrame" class="preview-iframe" src=""></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function openPreview(url, title) {
+            const pane = document.getElementById('previewPane');
+            const frame = document.getElementById('pdfFrame');
+            const titleElem = document.getElementById('previewTitle');
+
+            titleElem.innerHTML = `<i data-lucide="file-text" style="color: var(--accent); width: 18px; height: 18px;"></i> Previewing: ${title}`;
+            frame.src = url;
+            pane.classList.add('active');
+            pane.scrollIntoView({ behavior: 'smooth' });
+            lucide.createIcons();
+        }
+
+        function closePreview() {
+            const pane = document.getElementById('previewPane');
+            const frame = document.getElementById('pdfFrame');
+            pane.classList.remove('active');
+            frame.src = '';
+        }
+    </script>
+</body>
+
+</html>
