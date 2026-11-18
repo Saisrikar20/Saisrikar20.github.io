@@ -98,5 +98,15 @@
     "browser": "Chrome",
     "country": "IN",
     "visitorHash": "ec392e7b6163"
+  },
+  {
+    "id": "hit-1795025358593-czys",
+    "timestamp": "2026-11-18T18:09:18.593Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ec392e7b6163"
   }
 ]
