@@ -28,11 +28,32 @@ button,
 [type='reset'],
 [type='submit'] {
   background-color: transparent;
+  background: transparent;
   color: inherit;
   border-color: transparent;
   padding: 0;
   margin: 0;
   font: inherit;
+}
+
+/* Disable Microsoft Edge / Chromium / Safari password reveal & clear buttons */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-contacts-auto-fill-button {
+  visibility: hidden !important;
+  display: none !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
 }
 
 /* Custom Themed Scrollbar (Modern Standard) */

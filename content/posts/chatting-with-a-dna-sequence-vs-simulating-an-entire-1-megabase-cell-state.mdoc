@@ -1,0 +1,47 @@
+---
+title: Chatting with a DNA sequence vs simulating an entire 1-megabase cell state
+publishedAt: '2026-11-18'
+summary: Experimenting with Carbon-X and then diving into DeepMind's AlphaGenome 2 release showed me the two distinct futures of biological AI — interactive genomic LLMs vs deep biophysical simulation.
+category: engineering
+tags:
+  - Genomics
+  - Carbon-X
+  - AlphaGenome
+  - DeepMind
+  - BioTech
+  - DeepLearning
+  - ComputationalBiology
+---
+Experimenting with Carbon-X and then diving into DeepMind's AlphaGenome 2 release showed me the two distinct futures of biological AI.
+
+I've been falling down the computational biology rabbit hole lately, and the contrast between these two models blew my mind.
+
+A couple of weeks ago, I got hands-on with Carbon-X.
+
+It's an open-source 14.8-billion-parameter model where you can paste raw DNA fragments directly into a prompt and chat with it in plain English. For someone exploring genomics, being able to inspect regulatory sequences and evaluate variant effects locally on open weights felt like magic. You don't need a massive cluster to run it. I was hooked.
+
+Then I opened the technical release for AlphaGenome 2 yesterday, and I couldn't put the paper down.
+
+It feels like watching an entirely different sport.
+
+AlphaGenome 2 doesn't try to be a conversational chatbot. It's a massive biophysical simulator:
+
+### 1. A 1-Megabase Window
+While Carbon-X handles roughly 50,000 base pairs, AG2 ingests 1,048,576 base pairs per forward pass through an 11-block transformer tower to capture long-range 3D chromatin loops.
+
+### 2. Single-Cell Conditioning
+Instead of averaging millions of cells together in bulk tissue, AG2 feeds a 256-dimensional condition vector derived from single-cell RNA-seq directly into the network trunk. It predicts how genetic sequences behave in specific, unmeasured cellular states.
+
+### 3. 15 Modality Heads
+At up to base-pair resolution, it predicts chromatin accessibility, RNA splicing, CpG methylation, contact maps, and binding profiles for 911 transcription factors. On TenK10K, it recovered 30% of causal variants across 28 immune cell types, nearly doubling earlier models.
+
+The takeaway for me isn't that one beats the other. They represent two completely different philosophies:
+
+* **Carbon-X** democratizes genomics by making DNA interactive, conversational, and accessible right on your local machine.
+* **AlphaGenome 2** turns the cell into software, giving researchers a way to prioritize which expensive wet-lab assays are actually worth running next.
+
+We aren't just reading genetic code anymore. One camp is teaching AI to speak the language of genetics. The other is teaching AI to run the cellular program.
+
+If you're watching the bio-AI space, which direction excites you more: interactive genomic LLMs or deep biophysical simulation?
+
+Full bioRxiv preprint: [https://www.biorxiv.org/content/10.64898/2026.11.11.765857v1](https://www.biorxiv.org/content/10.64898/2026.11.11.765857v1)
