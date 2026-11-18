@@ -4,7 +4,7 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     './content/**/*.{md,mdx}',
   ],
-  darkMode: 'class',
+  darkMode: ['selector', '[data-theme="dark"]'],
   corePlugins: {
     preflight: false,
   },

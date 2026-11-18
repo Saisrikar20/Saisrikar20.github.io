@@ -308,5 +308,25 @@
     "browser": "Chrome",
     "country": "IN",
     "visitorHash": "ec392e7b6163"
+  },
+  {
+    "id": "hit-1795020086447-f0q1",
+    "timestamp": "2026-11-18T16:41:26.447Z",
+    "path": "/blog",
+    "referrer": "localhost",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "1d5d29ceb3be"
+  },
+  {
+    "id": "hit-1795020663815-p0jc",
+    "timestamp": "2026-11-18T16:51:03.815Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ec392e7b6163"
   }
 ]

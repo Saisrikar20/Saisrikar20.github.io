@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false, // Prevents X-Powered-By fingerprinting in DevTools Network tab
+  experimental: {
+    outputFileTracingIncludes: {
+      '/**': ['./content/**/*'],
+    },
+  },
   async headers() {
     return [
       {

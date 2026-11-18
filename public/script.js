@@ -197,6 +197,12 @@ class ScrollRevealController {
             const hero = getElement('home');
             hero?.classList.add('visible');
         }, 100);
+        // Safety fallback: ensure all sections gracefully reveal even if observer is delayed
+        window.setTimeout(() => {
+            sections.forEach((section) => {
+                section.classList.add('visible');
+            });
+        }, 1200);
     }
 }
 // ============================================================================

@@ -18,6 +18,7 @@ import {
   Edit3,
 } from 'lucide-react';
 import { TrafficMonitor } from '@/components/admin/TrafficMonitor';
+import { AdminThemeToggle } from '@/components/admin/AdminThemeToggle';
 
 const SECTIONS = [
   { id: 'posts', label: 'Blog Posts', icon: BookOpen, path: '/keystatic/collection/posts' },
@@ -45,28 +46,28 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080C] text-gray-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#08080C] text-gray-900 dark:text-gray-100 flex flex-col font-sans transition-colors duration-200">
       {/* Top Admin Navigation Header */}
-      <header className="h-14 bg-[#0F0F16] border-b border-gray-800/80 px-4 flex items-center justify-between shrink-0 select-none">
+      <header className="h-14 bg-white dark:bg-[#0F0F16] border-b border-gray-200 dark:border-gray-800/80 px-4 flex items-center justify-between shrink-0 select-none transition-colors duration-200">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#D6544B]/15 border border-[#D6544B]/30 flex items-center justify-center text-[#D6544B]">
+          <div className="w-8 h-8 rounded-full bg-[#D6544B]/15 border border-[#D6544B]/30 flex items-center justify-center text-[#D6544B]">
             <ShieldCheck size={18} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-sm text-white tracking-tight">Sai Srikar</span>
-            <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded bg-orange-500/10 text-[#D6544B] border border-[#D6544B]/20">
+            <span className="font-semibold text-sm text-gray-900 dark:text-white tracking-tight">Sai Srikar</span>
+            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-[#D6544B]/10 text-[#D6544B] border border-[#D6544B]/25 font-semibold">
               Admin Portal
             </span>
           </div>
 
           {/* Mode Switcher Pills */}
-          <div className="hidden sm:flex items-center bg-[#14141E] p-1 rounded-xl border border-gray-800 ml-3">
+          <div className="hidden sm:flex items-center bg-gray-100 dark:bg-[#14141E] p-1 rounded-full border border-gray-200 dark:border-gray-800 ml-3">
             <button
               onClick={() => setActiveTab('traffic')}
-              className={`flex items-center gap-1.5 px-3 py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-1 text-xs rounded-full font-medium transition-all cursor-pointer border-0 ${
                 activeTab === 'traffic'
-                  ? 'bg-[#D6544B] text-white shadow-sm shadow-[#D6544B]/20'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-[#D6544B] text-white font-semibold shadow-[0_2px_10px_rgba(214,84,75,0.3)]'
+                  : 'bg-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
               <BarChart3 size={13} />
@@ -74,10 +75,10 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={() => setActiveTab('cms')}
-              className={`flex items-center gap-1.5 px-3 py-1 text-xs rounded-lg font-medium transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-1 text-xs rounded-full font-medium transition-all cursor-pointer border-0 ${
                 activeTab === 'cms'
-                  ? 'bg-[#D6544B] text-white shadow-sm shadow-[#D6544B]/20'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-[#D6544B] text-white font-semibold shadow-[0_2px_10px_rgba(214,84,75,0.3)]'
+                  : 'bg-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
               }`}
             >
               <Edit3 size={13} />
@@ -89,30 +90,41 @@ export default function AdminDashboard() {
         {/* Action Controls */}
         <div className="flex items-center gap-2">
           {/* Mobile Mode Switcher */}
-          <div className="flex sm:hidden items-center bg-[#14141E] p-1 rounded-xl border border-gray-800">
+          <div className="flex sm:hidden items-center bg-gray-100 dark:bg-[#14141E] p-1 rounded-full border border-gray-200 dark:border-gray-800">
             <button
               onClick={() => setActiveTab('traffic')}
-              className={`p-1.5 rounded-lg ${activeTab === 'traffic' ? 'bg-[#D6544B] text-white' : 'text-gray-400'}`}
+              className={`p-1.5 rounded-full transition-all border-0 ${
+                activeTab === 'traffic'
+                  ? 'bg-[#D6544B] text-white shadow-sm shadow-[#D6544B]/30'
+                  : 'bg-transparent text-gray-600 dark:text-gray-400'
+              }`}
               title="Traffic Analytics"
             >
               <BarChart3 size={14} />
             </button>
             <button
               onClick={() => setActiveTab('cms')}
-              className={`p-1.5 rounded-lg ${activeTab === 'cms' ? 'bg-[#D6544B] text-white' : 'text-gray-400'}`}
+              className={`p-1.5 rounded-full transition-all border-0 ${
+                activeTab === 'cms'
+                  ? 'bg-[#D6544B] text-white shadow-sm shadow-[#D6544B]/30'
+                  : 'bg-transparent text-gray-600 dark:text-gray-400'
+              }`}
               title="CMS Editor"
             >
               <Edit3 size={14} />
             </button>
           </div>
 
+          {/* Theme Toggle Button */}
+          <AdminThemeToggle />
+
           <Link
             href="/"
             target="_blank"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white px-2.5 py-1.5 rounded-lg border border-gray-800 hover:border-gray-700 transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-[#D6544B] dark:hover:text-[#D6544B] px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#14141C] hover:border-[#D6544B]/40 dark:hover:border-[#D6544B]/40 transition-all shadow-sm"
           >
             <ExternalLink size={13} />
-            <span>View Live Site</span>
+            <span>Live Site</span>
           </Link>
 
           {activeTab === 'cms' && (
@@ -120,7 +132,7 @@ export default function AdminDashboard() {
               href={currentFrameUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white px-2.5 py-1.5 rounded-lg border border-gray-800 hover:border-gray-700 transition-colors"
+              className="hidden md:inline-flex items-center gap-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-[#D6544B] dark:hover:text-[#D6544B] px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#14141C] hover:border-[#D6544B]/40 dark:hover:border-[#D6544B]/40 transition-all shadow-sm"
               title="Open CMS in new fullscreen window"
             >
               <Maximize2 size={13} />
@@ -131,7 +143,7 @@ export default function AdminDashboard() {
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-red-400 hover:text-red-300 bg-red-950/30 hover:bg-red-950/50 border border-red-800/40 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D6544B] bg-[#D6544B]/10 hover:bg-[#D6544B] hover:text-white border border-[#D6544B]/30 hover:border-[#D6544B] px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer shadow-[0_2px_8px_rgba(214,84,75,0.15)] hover:shadow-[0_4px_12px_rgba(214,84,75,0.3)] disabled:opacity-50"
           >
             <LogOut size={13} />
             <span>{loggingOut ? 'Locking...' : 'Lock / Log Out'}</span>
@@ -141,8 +153,8 @@ export default function AdminDashboard() {
 
       {/* Conditional Sub-navigation for CMS */}
       {activeTab === 'cms' && (
-        <nav className="bg-[#0B0B10] border-b border-gray-800/60 px-4 py-2 overflow-x-auto flex items-center gap-1.5 scrollbar-none shrink-0">
-          <span className="text-[11px] font-mono text-gray-500 uppercase tracking-wider mr-2 shrink-0">
+        <nav className="bg-gray-50 dark:bg-[#0B0B10] border-b border-gray-200 dark:border-gray-800/60 px-4 py-2 overflow-x-auto flex items-center gap-2 scrollbar-none shrink-0 transition-colors duration-200">
+          <span className="text-[11px] font-mono text-gray-500 uppercase tracking-wider mr-1 shrink-0">
             Jump to:
           </span>
           {SECTIONS.map((sec) => {
@@ -152,10 +164,10 @@ export default function AdminDashboard() {
               <button
                 key={sec.id}
                 onClick={() => setCurrentFrameUrl(sec.path)}
-                className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-all shrink-0 cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 text-xs px-3.5 py-1.5 rounded-full transition-all shrink-0 cursor-pointer font-medium ${
                   isActive
-                    ? 'bg-[#D6544B] text-white font-medium shadow-sm shadow-[#D6544B]/20'
-                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 border border-transparent hover:border-gray-800'
+                    ? 'bg-[#D6544B] text-white font-semibold shadow-[0_2px_10px_rgba(214,84,75,0.25)]'
+                    : 'bg-white dark:bg-[#14141C] text-gray-700 dark:text-gray-300 hover:text-[#D6544B] dark:hover:text-[#D6544B] border border-gray-200 dark:border-gray-800 hover:border-[#D6544B]/40 dark:hover:border-[#D6544B]/40 shadow-sm'
                 }`}
               >
                 <Icon size={13} />
@@ -175,7 +187,7 @@ export default function AdminDashboard() {
             key={currentFrameUrl}
             src={currentFrameUrl}
             title="Keystatic Admin Content Editor"
-            className="w-full h-full border-0 absolute inset-0"
+            className="w-full h-full border-0 absolute inset-0 bg-white dark:bg-[#0C0C12]"
           />
         )}
       </main>

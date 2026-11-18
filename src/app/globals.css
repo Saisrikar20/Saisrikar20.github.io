@@ -22,6 +22,19 @@
   color: #FFFFFF;
 }
 
+/* Universal Button & Input Reset (since Tailwind preflight is disabled) */
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  background-color: transparent;
+  color: inherit;
+  border-color: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
 /* Custom Themed Scrollbar (Modern Standard) */
 html {
   scrollbar-width: thin;
