@@ -48,5 +48,55 @@
     "browser": "Chrome",
     "country": "IN",
     "visitorHash": "1d5d29ceb3be"
+  },
+  {
+    "id": "hit-1795024326089-dypx",
+    "timestamp": "2026-11-18T17:52:06.089Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "1d5d29ceb3be"
+  },
+  {
+    "id": "hit-1795024425984-xlf8",
+    "timestamp": "2026-11-18T17:53:45.984Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "1d5d29ceb3be"
+  },
+  {
+    "id": "hit-1795024609951-uq2k",
+    "timestamp": "2026-11-18T17:56:49.951Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ec392e7b6163"
+  },
+  {
+    "id": "hit-1795024749761-7svl",
+    "timestamp": "2026-11-18T17:59:09.761Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ec392e7b6163"
+  },
+  {
+    "id": "hit-1795025141365-feoh",
+    "timestamp": "2026-11-18T18:05:41.365Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ec392e7b6163"
   }
 ]

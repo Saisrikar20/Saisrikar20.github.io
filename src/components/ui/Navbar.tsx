@@ -180,24 +180,14 @@ export function Navbar() {
 
           <a
             href="#contact"
-            className="btn btn-primary hover-target nav-cta-desktop"
+            className="btn btn-primary hover-target nav-cta"
             onClick={(e) => {
               e.preventDefault();
               handleLinkClick('#contact');
             }}
           >
-            Let&apos;s Talk
-          </a>
-
-          <a
-            href="#contact"
-            className="btn btn-primary hover-target nav-cta-mobile"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLinkClick('#contact');
-            }}
-          >
-            Talk
+            <span className="cta-full">Let&apos;s Talk</span>
+            <span className="cta-short">Talk</span>
           </a>
 
           {/* Mobile Hamburger Button */}

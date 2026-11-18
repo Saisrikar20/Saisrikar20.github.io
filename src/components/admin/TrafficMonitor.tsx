@@ -40,7 +40,7 @@ export function TrafficMonitor() {
   }, [range]);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8 font-sans transition-colors duration-200">
+    <div className="p-3.5 sm:p-6 max-w-7xl mx-auto space-y-6 sm:space-y-8 font-sans transition-colors duration-200 w-full min-w-0 overflow-x-hidden">
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-800/80 pb-6 transition-colors duration-200">
         <div>
@@ -56,14 +56,14 @@ export function TrafficMonitor() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {/* Timeframe Filter */}
-          <div className="flex bg-gray-100 dark:bg-[#14141C] p-1 rounded-full border border-gray-200 dark:border-gray-800 transition-colors duration-200">
+          <div className="flex overflow-x-auto bg-gray-100 dark:bg-[#14141C] p-0.5 sm:p-1 rounded-full border border-gray-200 dark:border-gray-800 transition-colors duration-200">
             {(['today', '7d', '30d', 'all'] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => setRange(t)}
-                className={`px-3.5 py-1 text-xs rounded-full font-mono transition-all cursor-pointer border-0 ${
+                className={`px-2.5 sm:px-3.5 py-1 text-[11px] sm:text-xs rounded-full font-mono transition-all cursor-pointer border-0 shrink-0 ${
                   range === t
                     ? 'bg-[#D6544B] text-white font-semibold shadow-[0_2px_10px_rgba(214,84,75,0.3)]'
                     : 'bg-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'

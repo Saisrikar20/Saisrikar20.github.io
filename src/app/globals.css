@@ -56,6 +56,16 @@ input::-webkit-contacts-auto-fill-button {
   margin: 0 !important;
 }
 
+/* Safeguard: Navbar CTA single-item protection */
+.nav-actions .nav-cta-mobile {
+  display: none !important;
+}
+@media screen and (max-width: 900px) {
+  .nav-actions .nav-cta-desktop {
+    display: none !important;
+  }
+}
+
 /* Custom Themed Scrollbar (Modern Standard) */
 html {
   scrollbar-width: thin;
