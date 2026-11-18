@@ -88,30 +88,32 @@ export default function AdminDashboard() {
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Mobile Mode Switcher */}
-          <div className="flex sm:hidden items-center bg-gray-100 dark:bg-[#14141E] p-1 rounded-full border border-gray-200 dark:border-gray-800">
+          <div className="flex sm:hidden items-center bg-gray-100 dark:bg-[#14141E] p-0.5 rounded-full border border-gray-200 dark:border-gray-800">
             <button
               onClick={() => setActiveTab('traffic')}
-              className={`p-1.5 rounded-full transition-all border-0 ${
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium transition-all border-0 ${
                 activeTab === 'traffic'
-                  ? 'bg-[#D6544B] text-white shadow-sm shadow-[#D6544B]/30'
+                  ? 'bg-[#D6544B] text-white font-semibold shadow-sm shadow-[#D6544B]/30'
                   : 'bg-transparent text-gray-600 dark:text-gray-400'
               }`}
               title="Traffic Analytics"
             >
-              <BarChart3 size={14} />
+              <BarChart3 size={12} />
+              <span>Traffic</span>
             </button>
             <button
               onClick={() => setActiveTab('cms')}
-              className={`p-1.5 rounded-full transition-all border-0 ${
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium transition-all border-0 ${
                 activeTab === 'cms'
-                  ? 'bg-[#D6544B] text-white shadow-sm shadow-[#D6544B]/30'
+                  ? 'bg-[#D6544B] text-white font-semibold shadow-sm shadow-[#D6544B]/30'
                   : 'bg-transparent text-gray-600 dark:text-gray-400'
               }`}
               title="CMS Editor"
             >
-              <Edit3 size={14} />
+              <Edit3 size={12} />
+              <span>CMS</span>
             </button>
           </div>
 
@@ -121,10 +123,12 @@ export default function AdminDashboard() {
           <Link
             href="/"
             target="_blank"
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-[#D6544B] dark:hover:text-[#D6544B] px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#14141C] hover:border-[#D6544B]/40 dark:hover:border-[#D6544B]/40 transition-all shadow-sm"
+            className="inline-flex items-center gap-1 text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-[#D6544B] dark:hover:text-[#D6544B] px-2.5 py-1.5 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#14141C] hover:border-[#D6544B]/40 dark:hover:border-[#D6544B]/40 transition-all shadow-sm"
+            title="Open Live Website"
           >
-            <ExternalLink size={13} />
-            <span>Live Site</span>
+            <ExternalLink size={12} />
+            <span className="hidden sm:inline">Live Site</span>
+            <span className="sm:hidden">Live</span>
           </Link>
 
           {activeTab === 'cms' && (
@@ -143,10 +147,12 @@ export default function AdminDashboard() {
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D6544B] bg-[#D6544B]/10 hover:bg-[#D6544B] hover:text-white border border-[#D6544B]/30 hover:border-[#D6544B] px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer shadow-[0_2px_8px_rgba(214,84,75,0.15)] hover:shadow-[0_4px_12px_rgba(214,84,75,0.3)] disabled:opacity-50"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-[#D6544B] bg-[#D6544B]/10 hover:bg-[#D6544B] hover:text-white border border-[#D6544B]/30 hover:border-[#D6544B] px-2.5 sm:px-3.5 py-1.5 rounded-full transition-all duration-200 cursor-pointer shadow-[0_2px_8px_rgba(214,84,75,0.15)] hover:shadow-[0_4px_12px_rgba(214,84,75,0.3)] disabled:opacity-50"
+            title="Lock and Log Out"
           >
-            <LogOut size={13} />
-            <span>{loggingOut ? 'Locking...' : 'Lock / Log Out'}</span>
+            <LogOut size={12} />
+            <span className="hidden sm:inline">{loggingOut ? 'Locking...' : 'Lock / Log Out'}</span>
+            <span className="sm:hidden">{loggingOut ? 'Lock...' : 'Lock'}</span>
           </button>
         </div>
       </header>

@@ -189,6 +189,17 @@ export function Navbar() {
             Let&apos;s Talk
           </a>
 
+          <a
+            href="#contact"
+            className="btn btn-primary hover-target nav-cta-mobile"
+            onClick={(e) => {
+              e.preventDefault();
+              handleLinkClick('#contact');
+            }}
+          >
+            Talk
+          </a>
+
           {/* Mobile Hamburger Button */}
           <button
             className="mobile-nav-toggle hover-target"
@@ -231,6 +242,29 @@ export function Navbar() {
             )}
           </button>
         </div>
+      </nav>
+
+      {/* Mobile Horizontal Quick-Nav Bar (Visible on mobile screens) */}
+      <nav className="mobile-quick-nav" aria-label="Mobile quick navigation">
+        {NAV_ITEMS.map((item) => {
+          const isTargetActive =
+            item.href.startsWith('#') && activeSection === item.href.replace('#', '');
+          return (
+            <a
+              key={item.label}
+              href={item.href}
+              className={`mobile-quick-pill hover-target ${isTargetActive ? 'active' : ''}`}
+              onClick={(e) => {
+                if (item.href.startsWith('#')) {
+                  e.preventDefault();
+                  handleLinkClick(item.href);
+                }
+              }}
+            >
+              {item.label}
+            </a>
+          );
+        })}
       </nav>
 
       {/* Mobile Navigation Drawer */}
