@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { verifyAdminToken } from '@/lib/auth';
-import { getAnalyticsSummary } from '@/lib/analytics';
+import { getAnalyticsSummary, clearAnalytics } from '@/lib/analytics';
 
 export async function GET(request: Request) {
   const cookieStore = cookies();
@@ -17,4 +17,17 @@ export async function GET(request: Request) {
 
   const summary = getAnalyticsSummary(range);
   return NextResponse.json(summary);
+}
+
+export async function DELETE() {
+  const cookieStore = cookies();
+  const token = cookieStore.get('admin_session')?.value;
+  const isAuthenticated = await verifyAdminToken(token);
+
+  if (!isAuthenticated) {
+    return NextResponse.json({ error: 'Unauthorized: Admin authentication required.' }, { status: 401 });
+  }
+
+  clearAnalytics();
+  return NextResponse.json({ ok: true, message: 'Analytics data reset successfully.' });
 }

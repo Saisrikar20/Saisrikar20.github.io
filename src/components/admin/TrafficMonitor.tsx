@@ -11,6 +11,7 @@ import {
   RefreshCw,
   Clock,
   Sparkles,
+  Trash2,
 } from 'lucide-react';
 import type { AnalyticsSummary } from '@/lib/analytics';
 
@@ -80,6 +81,19 @@ export function TrafficMonitor() {
             title="Refresh analytics data"
           >
             <RefreshCw size={15} className={loading ? 'animate-spin' : ''} />
+          </button>
+
+          <button
+            onClick={async () => {
+              if (window.confirm('Clear all recorded analytics history and start from 0?')) {
+                await fetch('/api/admin/analytics', { method: 'DELETE' });
+                fetchData(range);
+              }
+            }}
+            className="p-2 rounded-full bg-white dark:bg-[#14141C] border border-gray-200 dark:border-gray-800 hover:border-red-400 dark:hover:border-red-500/40 text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-all cursor-pointer shadow-sm"
+            title="Clear and reset analytics data"
+          >
+            <Trash2 size={15} />
           </button>
         </div>
       </div>
@@ -326,6 +340,13 @@ export function TrafficMonitor() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800/40 font-mono">
+              {(!data?.recentHits || data.recentHits.length === 0) && (
+                <tr>
+                  <td colSpan={5} className="py-8 text-center text-gray-500 font-sans text-xs">
+                    No visitor hits recorded yet. Real-time traffic will stream here as visitors explore your portfolio.
+                  </td>
+                </tr>
+              )}
               {data?.recentHits?.map((hit) => {
                 const date = new Date(hit.timestamp);
                 const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });

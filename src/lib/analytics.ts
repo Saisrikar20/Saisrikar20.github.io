@@ -25,7 +25,10 @@ export interface AnalyticsSummary {
   recentHits: TrafficEvent[];
 }
 
-const ANALYTICS_FILE = path.join(process.cwd(), 'content', 'analytics.json');
+const ANALYTICS_FILE =
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
+    ? path.join('/tmp', 'analytics.json')
+    : path.join(process.cwd(), 'content', 'analytics.json');
 
 // In-memory cache to ensure instant reads and avoid heavy disk I/O on every request
 let memoryEvents: TrafficEvent[] | null = null;
@@ -36,91 +39,32 @@ function loadEvents(): TrafficEvent[] {
   try {
     if (fs.existsSync(ANALYTICS_FILE)) {
       const raw = fs.readFileSync(ANALYTICS_FILE, 'utf-8');
-      memoryEvents = JSON.parse(raw);
-      return memoryEvents || [];
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        memoryEvents = parsed;
+        return memoryEvents;
+      }
     }
   } catch (err) {
     console.error('Error loading analytics events:', err);
   }
 
-  // Initial seed dataset reflecting authentic baseline traffic
-  const now = Date.now();
-  const seed: TrafficEvent[] = [
-    {
-      id: 'seed-1',
-      timestamp: new Date(now - 1000 * 60 * 12).toISOString(),
-      path: '/blog/defensible-llm-security-engineering',
-      referrer: 'X',
-      device: 'Desktop',
-      browser: 'Chrome',
-      country: 'IN',
-      visitorHash: 'hash-a1',
-    },
-    {
-      id: 'seed-2',
-      timestamp: new Date(now - 1000 * 60 * 45).toISOString(),
-      path: '/',
-      referrer: 'LinkedIn',
-      device: 'Desktop',
-      browser: 'Chrome',
-      country: 'IN',
-      visitorHash: 'hash-b2',
-    },
-    {
-      id: 'seed-3',
-      timestamp: new Date(now - 1000 * 60 * 110).toISOString(),
-      path: '/blog',
-      referrer: 'Direct',
-      device: 'Mobile',
-      browser: 'Safari',
-      country: 'IN',
-      visitorHash: 'hash-c3',
-    },
-    {
-      id: 'seed-4',
-      timestamp: new Date(now - 1000 * 60 * 240).toISOString(),
-      path: '/',
-      referrer: 'GitHub',
-      device: 'Desktop',
-      browser: 'Firefox',
-      country: 'US',
-      visitorHash: 'hash-d4',
-    },
-    {
-      id: 'seed-5',
-      timestamp: new Date(now - 1000 * 60 * 360).toISOString(),
-      path: '/blog/local-airgapped-rag-docling',
-      referrer: 'Google',
-      device: 'Desktop',
-      browser: 'Edge',
-      country: 'SG',
-      visitorHash: 'hash-e5',
-    },
-    {
-      id: 'seed-6',
-      timestamp: new Date(now - 1000 * 60 * 520).toISOString(),
-      path: '/',
-      referrer: 'Direct',
-      device: 'Mobile',
-      browser: 'Chrome',
-      country: 'IN',
-      visitorHash: 'hash-f6',
-    },
-    {
-      id: 'seed-7',
-      timestamp: new Date(now - 1000 * 60 * 780).toISOString(),
-      path: '/blog/prompt-injection-defense-rec-panels',
-      referrer: 'X',
-      device: 'Desktop',
-      browser: 'Chrome',
-      country: 'IN',
-      visitorHash: 'hash-g7',
-    },
-  ];
+  // Start with empty real-data log (no mock seed events)
+  memoryEvents = [];
+  return memoryEvents;
+}
 
-  memoryEvents = seed;
-  saveEvents(seed);
-  return seed;
+export function clearAnalytics(): void {
+  memoryEvents = [];
+  try {
+    const dir = path.dirname(ANALYTICS_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(ANALYTICS_FILE, '[]', 'utf-8');
+  } catch (err) {
+    console.error('Error clearing analytics:', err);
+  }
 }
 
 function saveEvents(events: TrafficEvent[]) {
