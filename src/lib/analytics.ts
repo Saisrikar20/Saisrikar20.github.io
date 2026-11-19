@@ -23,63 +23,191 @@ export interface AnalyticsSummary {
   browsers: { browser: string; count: number; percentage: number }[];
   countries: { country: string; count: number; percentage: number }[];
   recentHits: TrafficEvent[];
+  storageProvider: 'kv' | 'file';
 }
+
+const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || null;
+const KV_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || null;
+const KV_KEY = 'portfolio_analytics_events_v1';
+
+const BUNDLED_ANALYTICS_FILE = path.join(process.cwd(), 'content', 'analytics.json');
+const TMP_ANALYTICS_FILE = path.join('/tmp', 'analytics.json');
 
 const ANALYTICS_FILE =
   process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
-    ? path.join('/tmp', 'analytics.json')
-    : path.join(process.cwd(), 'content', 'analytics.json');
+    ? TMP_ANALYTICS_FILE
+    : BUNDLED_ANALYTICS_FILE;
 
-// In-memory cache to ensure instant reads and avoid heavy disk I/O on every request
+// In-memory cache to ensure instant reads during warm container execution
 let memoryEvents: TrafficEvent[] | null = null;
+let lastKvFetchMs = 0;
+const KV_CACHE_TTL_MS = 15000; // 15 seconds
 
-function loadEvents(): TrafficEvent[] {
-  if (memoryEvents) return memoryEvents;
+/**
+ * Fetch events from Vercel KV / Upstash Redis REST API if configured
+ */
+async function loadEventsFromKV(): Promise<TrafficEvent[] | null> {
+  if (!KV_URL || !KV_TOKEN) return null;
 
   try {
-    if (fs.existsSync(ANALYTICS_FILE)) {
-      const raw = fs.readFileSync(ANALYTICS_FILE, 'utf-8');
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        memoryEvents = parsed;
-        return memoryEvents;
+    const res = await fetch(`${KV_URL}/get/${KV_KEY}`, {
+      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+      cache: 'no-store',
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.result) {
+        const parsed = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
       }
     }
   } catch (err) {
-    console.error('Error loading analytics events:', err);
+    console.error('Failed to read from Vercel KV / Upstash:', err);
+  }
+  return null;
+}
+
+/**
+ * Persist events to Vercel KV / Upstash Redis REST API
+ */
+async function saveEventsToKV(events: TrafficEvent[]): Promise<boolean> {
+  if (!KV_URL || !KV_TOKEN) return false;
+
+  try {
+    const capped = events.slice(-5000);
+    const res = await fetch(`${KV_URL}/set/${KV_KEY}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${KV_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(JSON.stringify(capped)),
+    });
+    return res.ok;
+  } catch (err) {
+    console.error('Failed to save to Vercel KV / Upstash:', err);
+    return false;
+  }
+}
+
+/**
+ * Read events from local filesystem or bundled file with serverless /tmp fallback
+ */
+function loadEventsFromFile(): TrafficEvent[] {
+  try {
+    // 1. Try reading the active target file
+    if (fs.existsSync(ANALYTICS_FILE)) {
+      const raw = fs.readFileSync(ANALYTICS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+
+    // 2. If in serverless and /tmp is empty, seed from bundled content/analytics.json
+    if (ANALYTICS_FILE !== BUNDLED_ANALYTICS_FILE && fs.existsSync(BUNDLED_ANALYTICS_FILE)) {
+      const raw = fs.readFileSync(BUNDLED_ANALYTICS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        // Seed /tmp so subsequent reads in this container find it
+        try {
+          const dir = path.dirname(ANALYTICS_FILE);
+          if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+          fs.writeFileSync(ANALYTICS_FILE, raw, 'utf-8');
+        } catch {
+          // Ignore write failure in seed
+        }
+        return parsed;
+      }
+    }
+  } catch (err) {
+    console.error('Error loading analytics events from filesystem:', err);
   }
 
-  // Start with empty real-data log (no mock seed events)
-  memoryEvents = [];
+  return [];
+}
+
+/**
+ * Save events to filesystem (both /tmp and content/analytics.json when writable)
+ */
+function saveEventsToFile(events: TrafficEvent[]) {
+  const capped = events.slice(-5000);
+  const jsonStr = JSON.stringify(capped, null, 2);
+
+  // 1. Write to active analytics file (/tmp on Vercel, content/analytics.json locally)
+  try {
+    const dir = path.dirname(ANALYTICS_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(ANALYTICS_FILE, jsonStr, 'utf-8');
+  } catch (err) {
+    console.error('Error saving analytics data to active file:', err);
+  }
+
+  // 2. Also attempt to save to content/analytics.json if locally running
+  if (ANALYTICS_FILE !== BUNDLED_ANALYTICS_FILE) {
+    try {
+      if (fs.existsSync(path.dirname(BUNDLED_ANALYTICS_FILE))) {
+        fs.writeFileSync(BUNDLED_ANALYTICS_FILE, jsonStr, 'utf-8');
+      }
+    } catch {
+      // Expected to fail on read-only serverless lambdas
+    }
+  }
+}
+
+/**
+ * Load events with cloud KV prioritized, falling back to local filesystem
+ */
+export async function loadEvents(): Promise<TrafficEvent[]> {
+  const now = Date.now();
+
+  // If KV is configured, check if we need to refresh from cloud
+  if (KV_URL && KV_TOKEN) {
+    if (!memoryEvents || now - lastKvFetchMs > KV_CACHE_TTL_MS) {
+      const kvEvents = await loadEventsFromKV();
+      if (kvEvents !== null) {
+        memoryEvents = kvEvents;
+        lastKvFetchMs = now;
+        return memoryEvents;
+      }
+    }
+  }
+
+  // If in-memory cache exists and KV was not stale, return cache
+  if (memoryEvents) return memoryEvents;
+
+  // Fallback to filesystem
+  const fileEvents = loadEventsFromFile();
+  memoryEvents = fileEvents;
   return memoryEvents;
 }
 
-export function clearAnalytics(): void {
+export async function clearAnalytics(): Promise<void> {
   memoryEvents = [];
-  try {
-    const dir = path.dirname(ANALYTICS_FILE);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(ANALYTICS_FILE, '[]', 'utf-8');
-  } catch (err) {
-    console.error('Error clearing analytics:', err);
+
+  // Clear KV if active
+  if (KV_URL && KV_TOKEN) {
+    await saveEventsToKV([]);
   }
+
+  // Clear files
+  saveEventsToFile([]);
 }
 
-function saveEvents(events: TrafficEvent[]) {
-  try {
-    const dir = path.dirname(ANALYTICS_FILE);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    // Cap to last 5,000 events to prevent unbounded growth
-    const capped = events.slice(-5000);
-    fs.writeFileSync(ANALYTICS_FILE, JSON.stringify(capped, null, 2), 'utf-8');
-    memoryEvents = capped;
-  } catch (err) {
-    console.error('Error saving analytics data:', err);
+export async function restoreAnalytics(events: TrafficEvent[]): Promise<void> {
+  if (!Array.isArray(events)) return;
+  const capped = events.slice(-5000);
+  memoryEvents = capped;
+
+  if (KV_URL && KV_TOKEN) {
+    await saveEventsToKV(capped);
   }
+  saveEventsToFile(capped);
 }
 
 export function parseReferrer(rawReferrer: string | null | undefined): string {
@@ -129,14 +257,13 @@ export function parseUserAgent(ua: string | null | undefined): {
   return { device, browser };
 }
 
-export function recordTrafficHit(params: {
+export async function recordTrafficHit(params: {
   path: string;
   referrer?: string | null;
   userAgent?: string | null;
   ip?: string | null;
   country?: string | null;
 }) {
-  // Ignore admin and internal system routes
   const p = params.path;
   if (
     !p ||
@@ -144,16 +271,16 @@ export function recordTrafficHit(params: {
     p.startsWith('/api') ||
     p.startsWith('/admin') ||
     p.startsWith('/keystatic') ||
-    p.includes('.') // static files like .css, .js, .svg
+    p.includes('.') // static assets
   ) {
     return;
   }
 
-  const events = loadEvents();
+  const events = await loadEvents();
   const { device, browser } = parseUserAgent(params.userAgent);
   const ref = parseReferrer(params.referrer);
 
-  // Cryptographically anonymize IP + UserAgent
+  // Anonymized hash from IP + UA
   const rawId = `${params.ip || 'unknown'}-${params.userAgent || 'generic'}`;
   const visitorHash = crypto.createHash('sha256').update(rawId).digest('hex').slice(0, 12);
 
@@ -169,11 +296,17 @@ export function recordTrafficHit(params: {
   };
 
   events.push(newEvent);
-  saveEvents(events);
+  memoryEvents = events;
+
+  // Persist across cloud KV and local files
+  if (KV_URL && KV_TOKEN) {
+    saveEventsToKV(events).catch((e) => console.error('Background KV save error:', e));
+  }
+  saveEventsToFile(events);
 }
 
-export function getAnalyticsSummary(timeRange: 'today' | '7d' | '30d' | 'all' = 'all'): AnalyticsSummary {
-  const events = loadEvents();
+export async function getAnalyticsSummary(timeRange: 'today' | '7d' | '30d' | 'all' = 'all'): Promise<AnalyticsSummary> {
+  const events = await loadEvents();
   const now = Date.now();
 
   let filtered = events;
@@ -199,7 +332,6 @@ export function getAnalyticsSummary(timeRange: 'today' | '7d' | '30d' | 'all' = 
   const todayMs = startOfDay.getTime();
   const todayViews = events.filter((e) => new Date(e.timestamp).getTime() >= todayMs).length;
 
-  // Aggregate Helper
   const aggregate = (key: keyof TrafficEvent) => {
     const counts: Record<string, number> = {};
     filtered.forEach((e) => {
@@ -245,7 +377,6 @@ export function getAnalyticsSummary(timeRange: 'today' | '7d' | '30d' | 'all' = 
     percentage: item.percentage,
   }));
 
-  // Latest 30 hits in reverse chronological order
   const recentHits = [...filtered].reverse().slice(0, 30);
 
   return {
@@ -258,5 +389,6 @@ export function getAnalyticsSummary(timeRange: 'today' | '7d' | '30d' | 'all' = 
     browsers: browAgg,
     countries: ctryAgg,
     recentHits,
+    storageProvider: KV_URL && KV_TOKEN ? 'kv' : 'file',
   };
 }

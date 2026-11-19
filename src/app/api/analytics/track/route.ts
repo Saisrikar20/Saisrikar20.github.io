@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip');
     const country = request.headers.get('x-vercel-ip-country') || 'IN';
 
-    recordTrafficHit({
+    await recordTrafficHit({
       path,
       referrer,
       userAgent,

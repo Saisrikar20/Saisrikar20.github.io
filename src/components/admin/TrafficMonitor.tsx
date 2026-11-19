@@ -12,13 +12,23 @@ import {
   Clock,
   Sparkles,
   Trash2,
+  Download,
+  Database,
+  Info,
+  X,
+  Upload,
 } from 'lucide-react';
 import type { AnalyticsSummary } from '@/lib/analytics';
+
+const BACKUP_STORAGE_KEY = 'sai_analytics_backup_v1';
 
 export function TrafficMonitor() {
   const [range, setRange] = useState<'today' | '7d' | '30d' | 'all'>('all');
   const [data, setData] = useState<AnalyticsSummary | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showKvModal, setShowKvModal] = useState(false);
+  const [hasLocalBackup, setHasLocalBackup] = useState(false);
+  const [restoring, setRestoring] = useState(false);
 
   const fetchData = async (selectedRange: string) => {
     setLoading(true);
@@ -27,6 +37,20 @@ export function TrafficMonitor() {
       if (res.ok) {
         const json = await res.json();
         setData(json);
+
+        // Auto-cache to browser localStorage as a client-side backup
+        if (json.recentHits && json.recentHits.length > 0) {
+          try {
+            const existingRaw = localStorage.getItem(BACKUP_STORAGE_KEY);
+            const existingHits = existingRaw ? JSON.parse(existingRaw) : [];
+            const mergedMap = new Map();
+            existingHits.forEach((h: { id: string }) => mergedMap.set(h.id, h));
+            json.recentHits.forEach((h: { id: string }) => mergedMap.set(h.id, h));
+            localStorage.setItem(BACKUP_STORAGE_KEY, JSON.stringify(Array.from(mergedMap.values())));
+          } catch {
+            // Ignore quota errors
+          }
+        }
       }
     } catch (err) {
       console.error('Failed to load traffic analytics:', err);
@@ -37,19 +61,82 @@ export function TrafficMonitor() {
 
   useEffect(() => {
     fetchData(range);
+
+    // Check if client has cached backup
+    try {
+      const existingRaw = localStorage.getItem(BACKUP_STORAGE_KEY);
+      if (existingRaw) {
+        const parsed = JSON.parse(existingRaw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setHasLocalBackup(true);
+        }
+      }
+    } catch {
+      // Ignore
+    }
   }, [range]);
+
+  const handleDownloadBackup = () => {
+    if (!data?.recentHits) return;
+    const blob = new Blob([JSON.stringify(data.recentHits, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `portfolio-analytics-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleRestoreFromCache = async () => {
+    try {
+      const existingRaw = localStorage.getItem(BACKUP_STORAGE_KEY);
+      if (!existingRaw) return;
+      const parsed = JSON.parse(existingRaw);
+      if (!Array.isArray(parsed) || parsed.length === 0) return;
+
+      setRestoring(true);
+      const res = await fetch('/api/admin/analytics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ events: parsed }),
+      });
+
+      if (res.ok) {
+        fetchData(range);
+      }
+    } catch (err) {
+      console.error('Failed to restore analytics backup:', err);
+    } finally {
+      setRestoring(false);
+    }
+  };
 
   return (
     <div className="p-3.5 sm:p-6 max-w-7xl mx-auto space-y-6 sm:space-y-8 font-sans transition-colors duration-200 w-full min-w-0 overflow-x-hidden">
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-800/80 pb-6 transition-colors duration-200">
         <div>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">Traffic & Visitor Intelligence</h2>
             <span className="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
               Live Tracking
             </span>
+
+            {/* Storage Provider Badge */}
+            <button
+              onClick={() => setShowKvModal(true)}
+              className={`flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-full border transition-all cursor-pointer ${
+                data?.storageProvider === 'kv'
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                  : 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30 hover:bg-amber-500/15'
+              }`}
+              title="Click to view persistence status and cloud sync setup"
+            >
+              <Database size={11} />
+              <span>{data?.storageProvider === 'kv' ? 'Cloud KV Persistent' : 'Local /tmp Storage (Tap to Enable KV)'}</span>
+              <Info size={10} className="opacity-70" />
+            </button>
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             Real-time analytics for portfolio visitors, technical blog readers, and referral sources.
@@ -74,6 +161,7 @@ export function TrafficMonitor() {
             ))}
           </div>
 
+          {/* Refresh Button */}
           <button
             onClick={() => fetchData(range)}
             disabled={loading}
@@ -83,10 +171,39 @@ export function TrafficMonitor() {
             <RefreshCw size={15} className={loading ? 'animate-spin' : ''} />
           </button>
 
+          {/* Download JSON Backup */}
+          <button
+            onClick={handleDownloadBackup}
+            disabled={loading || !data?.totalViews}
+            className="p-2 rounded-full bg-white dark:bg-[#14141C] border border-gray-200 dark:border-gray-800 hover:border-[#D6544B]/40 dark:hover:border-[#D6544B]/40 text-gray-600 dark:text-gray-400 hover:text-[#D6544B] dark:hover:text-[#D6544B] transition-all cursor-pointer shadow-sm disabled:opacity-40"
+            title="Download JSON Analytics Backup"
+          >
+            <Download size={15} />
+          </button>
+
+          {/* Restore Cache Button (if client backup exists) */}
+          {hasLocalBackup && (
+            <button
+              onClick={handleRestoreFromCache}
+              disabled={restoring}
+              className="p-2 rounded-full bg-white dark:bg-[#14141C] border border-gray-200 dark:border-gray-800 hover:border-emerald-400 dark:hover:border-emerald-500/40 text-gray-600 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-all cursor-pointer shadow-sm"
+              title="Restore / Sync from Browser Cache"
+            >
+              <Upload size={15} className={restoring ? 'animate-bounce' : ''} />
+            </button>
+          )}
+
+          {/* Clear Button */}
           <button
             onClick={async () => {
               if (window.confirm('Clear all recorded analytics history and start from 0?')) {
                 await fetch('/api/admin/analytics', { method: 'DELETE' });
+                try {
+                  localStorage.removeItem(BACKUP_STORAGE_KEY);
+                  setHasLocalBackup(false);
+                } catch {
+                  // Ignore
+                }
                 fetchData(range);
               }
             }}
@@ -97,6 +214,55 @@ export function TrafficMonitor() {
           </button>
         </div>
       </div>
+
+      {/* Cloud KV Persistence Modal */}
+      {showKvModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-[#0F0F16] border border-gray-200 dark:border-gray-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-3">
+              <div className="flex items-center gap-2 font-semibold text-gray-900 dark:text-white text-sm">
+                <Database size={16} className="text-[#D6544B]" />
+                <span>100% Cloud Persistence Setup</span>
+              </div>
+              <button
+                onClick={() => setShowKvModal(false)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1 rounded-full cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="text-xs text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
+              <p>
+                In serverless environments like Vercel, the local filesystem is ephemeral and resets during cold starts or redeployments.
+              </p>
+              <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#14141E] border border-gray-200 dark:border-gray-800 space-y-2">
+                <div className="font-semibold text-gray-900 dark:text-white text-xs">
+                  How to enable permanent cloud persistence:
+                </div>
+                <ol className="list-decimal list-inside space-y-1.5 text-gray-600 dark:text-gray-300">
+                  <li>Open your <strong>Vercel Dashboard</strong> and navigate to your project.</li>
+                  <li>Click the <strong>Storage</strong> tab and select <strong>KV (Redis)</strong>.</li>
+                  <li>Click <strong>Create Database</strong> and link it to this project.</li>
+                  <li>Vercel automatically sets <code className="text-[#D6544B] font-mono">KV_REST_API_URL</code> and <code className="text-[#D6544B] font-mono">KV_REST_API_TOKEN</code>.</li>
+                </ol>
+              </div>
+              <p className="text-[11px] text-gray-500">
+                Your portfolio code is already pre-configured to detect Vercel KV and Upstash Redis automatically! Once linked, every pageview and visitor hit is stored permanently forever across all regions and deployments.
+              </p>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setShowKvModal(false)}
+                className="px-4 py-1.5 bg-[#D6544B] hover:bg-[#BF433B] text-white text-xs font-semibold rounded-full transition-all cursor-pointer"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
