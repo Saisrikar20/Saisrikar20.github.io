@@ -221,8 +221,8 @@ export function TrafficMonitor() {
           <div className="bg-white dark:bg-[#0F0F16] border border-gray-200 dark:border-gray-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
             <div className="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-3">
               <div className="flex items-center gap-2 font-semibold text-gray-900 dark:text-white text-sm">
-                <Database size={16} className="text-[#D6544B]" />
-                <span>100% Cloud Persistence Setup</span>
+                <Database size={16} className={data?.storageProvider === 'kv' ? 'text-emerald-500' : 'text-[#D6544B]'} />
+                <span>{data?.storageProvider === 'kv' ? 'Cloud Persistence Active' : 'Cloud Persistence Setup'}</span>
               </div>
               <button
                 onClick={() => setShowKvModal(false)}
@@ -232,25 +232,46 @@ export function TrafficMonitor() {
               </button>
             </div>
 
-            <div className="text-xs text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
-              <p>
-                In serverless environments like Vercel, the local filesystem is ephemeral and resets during cold starts or redeployments.
-              </p>
-              <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-[#14141E] border border-gray-200 dark:border-gray-800 space-y-2">
-                <div className="font-semibold text-gray-900 dark:text-white text-xs">
-                  How to enable permanent cloud persistence:
+            {data?.storageProvider === 'kv' ? (
+              <div className="text-xs text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
+                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 space-y-1.5">
+                  <div className="font-semibold text-xs flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    Permanent Cloud Storage Connected
+                  </div>
+                  <p className="text-[11px] text-emerald-800 dark:text-emerald-200/90 leading-normal">
+                    Your portfolio is currently connected to <strong>Upstash Redis / Vercel KV</strong>. Every visitor hit and pageview is stored securely and permanently in the cloud.
+                  </p>
                 </div>
-                <ol className="list-decimal list-inside space-y-1.5 text-gray-600 dark:text-gray-300">
-                  <li>Open your <strong>Vercel Dashboard</strong> and navigate to your project.</li>
-                  <li>Click the <strong>Storage</strong> tab and select <strong>KV (Redis)</strong>.</li>
-                  <li>Click <strong>Create Database</strong> and link it to this project.</li>
-                  <li>Vercel automatically sets <code className="text-[#D6544B] font-mono">KV_REST_API_URL</code> and <code className="text-[#D6544B] font-mono">KV_REST_API_TOKEN</code>.</li>
-                </ol>
+                <div className="text-[11px] text-gray-500 dark:text-gray-400 space-y-1">
+                  <div>• <strong>Storage Provider:</strong> Cloud Redis KV (Upstash)</div>
+                  <div>• <strong>Persistence:</strong> Enabled (Survives all serverless cold starts & redeployments)</div>
+                  <div>• <strong>Total Events in Cloud:</strong> {data.totalViews.toLocaleString()}</div>
+                </div>
               </div>
-              <p className="text-[11px] text-gray-500">
-                Your portfolio code is already pre-configured to detect Vercel KV and Upstash Redis automatically! Once linked, every pageview and visitor hit is stored permanently forever across all regions and deployments.
-              </p>
-            </div>
+            ) : (
+              <div className="text-xs text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
+                <p>
+                  In serverless environments like Vercel, the local filesystem is ephemeral and resets during cold starts or redeployments.
+                </p>
+                <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-2">
+                  <div className="font-semibold text-amber-900 dark:text-amber-300 text-xs flex items-center gap-1.5">
+                    <span>⚡ If you just linked Upstash / Vercel KV:</span>
+                  </div>
+                  <p className="text-[11px] text-amber-800 dark:text-amber-200 leading-relaxed">
+                    Vercel does not inject new environment variables into already running deployments automatically. You must <strong>Redeploy</strong> your latest deployment for the server to connect:
+                  </p>
+                  <ol className="list-decimal list-inside space-y-1 text-[11px] text-amber-800 dark:text-amber-200">
+                    <li>Go to your <strong>Vercel Dashboard → Deployments</strong>.</li>
+                    <li>Click the <strong>...</strong> menu on your latest deployment.</li>
+                    <li>Click <strong>Redeploy</strong>.</li>
+                  </ol>
+                </div>
+                <p className="text-[11px] text-gray-500">
+                  Once redeployed, this badge will automatically turn green and show <strong>Cloud KV Persistent</strong>!
+                </p>
+              </div>
+            )}
 
             <div className="flex justify-end pt-2">
               <button

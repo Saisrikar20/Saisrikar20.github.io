@@ -118,5 +118,15 @@
     "browser": "Chrome",
     "country": "IN",
     "visitorHash": "ec392e7b6163"
+  },
+  {
+    "id": "hit-1795337765132-05yn",
+    "timestamp": "2026-11-22T08:56:05.132Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ff20b2850603"
   }
 ]
