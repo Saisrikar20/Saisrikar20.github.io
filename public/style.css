@@ -447,6 +447,7 @@ section {
   align-items: center;
   position: relative;
   padding-top: 10rem; /* Space for navbar */
+  overflow: hidden;
 }
 
 /* Subtle background orbs */
@@ -479,6 +480,8 @@ section {
 
 .hero-content {
   max-width: 800px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-eyebrow {

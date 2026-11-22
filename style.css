@@ -272,10 +272,18 @@ html.has-custom-cursor .hover-target {
   color: var(--accent);
 }
 
+/* Nav CTA Button Responsive Text */
+.nav-cta .cta-short {
+  display: none;
+}
+.nav-cta .cta-full {
+  display: inline;
+}
+
 /* Mobile Nav Drawer */
 .mobile-nav-drawer {
   position: fixed;
-  top: 5.5rem;
+  top: 5rem;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -439,6 +447,7 @@ section {
   align-items: center;
   position: relative;
   padding-top: 10rem; /* Space for navbar */
+  overflow: hidden;
 }
 
 /* Subtle background orbs */
@@ -471,6 +480,8 @@ section {
 
 .hero-content {
   max-width: 800px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-eyebrow {
@@ -488,11 +499,11 @@ section {
 
 .hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 4.2vw, 3.4rem);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
+  font-size: clamp(2.75rem, 5.2vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin-bottom: 1.5rem;
 }
 
 .hero h1 span {
@@ -1205,12 +1216,24 @@ section {
 
 @media screen and (max-width: 900px) {
   .nav-links { display: none !important; }
-  .nav-actions .nav-cta-desktop { display: none !important; }
+  .nav-cta .cta-full { display: none !important; }
+  .nav-cta .cta-short { display: inline !important; }
+  .nav-cta {
+    padding: 0.42rem 1rem !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    border-radius: 9999px !important;
+  }
+  .nav-actions { gap: 0.85rem; }
   .mobile-nav-toggle { display: flex !important; }
   .navbar, .navbar.scrolled {
     width: 92%;
-    padding: 0.85rem 1.4rem;
-    top: 1rem;
+    padding: 0.75rem 1.25rem;
+    top: 0.85rem;
+  }
+
+  .mobile-nav-drawer {
+    top: 5rem;
   }
 }
 
@@ -1218,8 +1241,8 @@ section {
 
   section { padding: 5rem 0; }
 
-  .hero { padding-top: 7rem; }
-  .hero h1 { font-size: 2rem; line-height: 1.15; }
+  .hero { padding-top: 8.5rem; }
+  .hero h1 { font-size: clamp(2.35rem, 6.8vw, 3rem); line-height: 1.14; }
   .hero p { font-size: 1rem; }
   .hero-actions { flex-direction: column; width: 100%; gap: 0.75rem; }
   .hero-actions .btn { width: 100%; justify-content: center; }
@@ -1255,8 +1278,8 @@ section {
   .nav-actions { gap: 0.6rem; }
 
   section { padding: 4rem 0; }
-  .hero { padding-top: 6.5rem; }
-  .hero h1 { font-size: 1.75rem; }
+  .hero { padding-top: 8rem; }
+  .hero h1 { font-size: clamp(2.15rem, 7.8vw, 2.5rem); line-height: 1.15; }
   .hero-eyebrow { font-size: 0.8rem; }
 
   .section-title { font-size: 1.5rem; margin-bottom: 1.5rem; }

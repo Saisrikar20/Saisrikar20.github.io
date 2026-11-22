@@ -10,6 +10,7 @@ import {
 } from '@/lib/keystatic';
 import { XIcon } from '@/components/ui/BrandIcons';
 import { Navbar } from '@/components/ui/Navbar';
+import { HeroBlindsBackground } from '@/components/ui/HeroBlindsBackground';
 
 export const metadata: Metadata = {
   title: 'Sai Srikar | AI & Data Science Web Portfolio',
@@ -81,6 +82,7 @@ export default async function HomePage() {
       <main>
         {/* Hero Section */}
         <section id="home" className="hero">
+          <HeroBlindsBackground />
           <div className="container hero-content">
             <span className="hero-eyebrow">{heroEyebrow}</span>
             <h1>

@@ -128,5 +128,45 @@
     "browser": "Chrome",
     "country": "IN",
     "visitorHash": "ff20b2850603"
+  },
+  {
+    "id": "hit-1795340226116-enl7",
+    "timestamp": "2026-11-22T09:37:06.116Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ff20b2850603"
+  },
+  {
+    "id": "hit-1795340289899-toeb",
+    "timestamp": "2026-11-22T09:38:09.899Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "1d5d29ceb3be"
+  },
+  {
+    "id": "hit-1795340341912-a9t0",
+    "timestamp": "2026-11-22T09:39:01.912Z",
+    "path": "/blog",
+    "referrer": "localhost",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "1d5d29ceb3be"
+  },
+  {
+    "id": "hit-1795340405834-gxqc",
+    "timestamp": "2026-11-22T09:40:05.834Z",
+    "path": "/",
+    "referrer": "localhost",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "1d5d29ceb3be"
   }
 ]
