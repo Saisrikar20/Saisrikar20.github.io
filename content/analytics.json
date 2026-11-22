@@ -108,5 +108,15 @@
     "browser": "Chrome",
     "country": "IN",
     "visitorHash": "ec392e7b6163"
+  },
+  {
+    "id": "hit-1795055794725-vesm",
+    "timestamp": "2026-11-19T02:36:34.725Z",
+    "path": "/",
+    "referrer": "Direct",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "country": "IN",
+    "visitorHash": "ec392e7b6163"
   }
 ]
