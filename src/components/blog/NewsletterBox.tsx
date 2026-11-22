@@ -54,31 +54,31 @@ export const NewsletterBox: React.FC<NewsletterBoxProps> = ({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-[#111217] to-[#09090D] p-6 sm:p-8 shadow-xl ${className}`}
+      className={`relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-[#111217] to-[#09090D] p-5 sm:p-6 shadow-xl ${className}`}
     >
-      <div className="absolute top-0 right-0 -mt-8 -mr-8 w-44 h-44 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 -mt-8 -mr-8 w-44 h-44 rounded-full bg-[#D6544B]/10 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-xl">
-        <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-2">
-          <Mail size={15} strokeWidth={1.5} />
+        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#D6544B] mb-1.5">
+          <Mail size={14} strokeWidth={1.5} />
           <span>Stay Updated</span>
         </div>
 
-        <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
+        <h3 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
           {title}
         </h3>
 
-        <p className="mt-2 text-sm text-gray-300 leading-relaxed font-normal">
+        <p className="mt-1.5 text-xs sm:text-sm text-gray-400 leading-relaxed font-normal">
           {description}
         </p>
 
         {status === 'success' ? (
-          <div className="mt-5 flex items-center gap-3 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm font-medium">
-            <CheckCircle2 size={18} className="shrink-0 text-emerald-400" />
+          <div className="mt-4 flex items-center gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium">
+            <CheckCircle2 size={16} className="shrink-0 text-emerald-400" />
             <span>{feedback}</span>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-5 flex flex-col sm:flex-row gap-2.5">
+          <form onSubmit={handleSubmit} className="mt-4 flex flex-col sm:flex-row gap-2">
             <div className="relative flex-1">
               <input
                 type="email"
@@ -86,17 +86,17 @@ export const NewsletterBox: React.FC<NewsletterBoxProps> = ({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@domain.com"
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-mono"
+                className="w-full px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-gray-500 text-xs focus:outline-none focus:border-[#D6544B]/50 focus:ring-1 focus:ring-[#D6544B]/50 transition-all font-mono"
               />
             </div>
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm transition-all duration-150 disabled:opacity-50 shrink-0 shadow-lg shadow-emerald-500/20 active:scale-[0.98]"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-[#D6544B] hover:bg-[#BF433B] text-white font-semibold text-xs transition-all duration-150 disabled:opacity-50 shrink-0 shadow-lg shadow-[#D6544B]/20 active:scale-[0.98]"
             >
               {status === 'loading' ? (
                 <>
-                  <Loader2 size={16} className="animate-spin mr-2" />
+                  <Loader2 size={14} className="animate-spin mr-1.5" />
                   <span>Subscribing...</span>
                 </>
               ) : (

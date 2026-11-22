@@ -31,34 +31,34 @@ export default async function BlogPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-[#09090D] text-gray-100 flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen bg-[#09090D] text-gray-100 flex flex-col font-sans selection:bg-[#D6544B]/30 selection:text-white">
       <BlogHeader />
 
-      <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 w-full space-y-12">
+      <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 w-full space-y-6">
         {/* Blog Hero Intro */}
-        <section className="space-y-4">
-          <h1 className="text-3xl sm:text-5xl font-display font-semibold text-white tracking-tight leading-tight">
+        <div className="space-y-2">
+          <h1 className="text-2xl sm:text-4xl font-display font-semibold text-white tracking-tight leading-tight">
             Engineering Logs &amp; Architecture Notes
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-300 max-w-2xl leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-gray-400 max-w-2xl leading-relaxed font-normal">
             First-principles write-ups on building autonomous AI agents, hardening LLM
             pipelines against prompt injection, and deploying offline local RAG architectures.
           </p>
-        </section>
+        </div>
 
         {/* Catalog of Articles */}
-        <section>
+        <div>
           <BlogCatalog posts={formattedPosts} />
-        </section>
+        </div>
 
         {/* Newsletter Callout */}
-        <section className="pt-6">
+        <div className="pt-2">
           <NewsletterBox />
-        </section>
+        </div>
       </main>
 
-      <footer className="border-t border-white/5 py-8 text-center text-xs font-mono text-gray-500">
+      <footer className="border-t border-white/5 py-6 text-center text-xs font-mono text-gray-500">
         <p>© {new Date().getFullYear()} Sai Srikar B · saisrikar.in/blog</p>
       </footer>
     </div>

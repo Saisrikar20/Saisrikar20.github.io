@@ -53,20 +53,20 @@ export const BlogCatalog: React.FC<BlogCatalogProps> = ({ posts }) => {
   }, [posts, selectedCategory, searchQuery]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       {/* Search & Category Filter Controls */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+      <div className="flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center">
         {/* Category Pills */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat;
             return (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-mono transition-all ${
                   isActive
-                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold'
+                    ? 'bg-[#D6544B]/15 text-[#D6544B] border border-[#D6544B]/40 font-semibold'
                     : 'bg-white/[0.03] hover:bg-white/[0.08] text-gray-400 hover:text-white border border-white/5'
                 }`}
               >
@@ -77,9 +77,9 @@ export const BlogCatalog: React.FC<BlogCatalogProps> = ({ posts }) => {
         </div>
 
         {/* Instant Search Bar */}
-        <div className="relative w-full sm:w-64">
+        <div className="relative w-full sm:w-60">
           <Search
-            size={15}
+            size={14}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
           />
           <input
@@ -87,14 +87,14 @@ export const BlogCatalog: React.FC<BlogCatalogProps> = ({ posts }) => {
             placeholder="Search articles or tags..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/10 text-white placeholder-gray-500 text-xs font-mono focus:outline-none focus:border-emerald-500/40 transition-colors"
+            className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/10 text-white placeholder-gray-500 text-xs font-mono focus:outline-none focus:border-[#D6544B]/50 transition-colors"
           />
         </div>
       </div>
 
       {/* Post Grid / List */}
       {filteredPosts.length === 0 ? (
-        <div className="py-16 text-center rounded-2xl border border-white/5 bg-white/[0.01]">
+        <div className="py-12 text-center rounded-2xl border border-white/5 bg-white/[0.01]">
           <p className="text-gray-400 font-mono text-sm">
             No articles found matching your criteria.
           </p>
@@ -103,26 +103,26 @@ export const BlogCatalog: React.FC<BlogCatalogProps> = ({ posts }) => {
               setSelectedCategory('all');
               setSearchQuery('');
             }}
-            className="mt-3 text-xs font-mono text-emerald-400 hover:underline"
+            className="mt-3 text-xs font-mono text-[#D6544B] hover:underline"
           >
             Clear filters
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-4">
           {filteredPosts.map((post) => (
             <article
               key={post.slug}
-              className="group relative rounded-2xl border border-white/10 bg-[#111217]/70 hover:bg-[#151720] hover:border-emerald-500/30 transition-all duration-200 p-6 sm:p-7 shadow-lg"
+              className="group relative rounded-2xl border border-white/10 bg-[#111217]/70 hover:bg-[#151720] hover:border-[#D6544B]/30 transition-all duration-200 p-5 sm:p-6 shadow-lg"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono text-gray-400 mb-3">
-                <div className="flex items-center gap-3">
-                  <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-mono text-gray-400 mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#D6544B]/10 text-[#D6544B] border border-[#D6544B]/20 font-medium text-[11px]">
                     {CATEGORY_LABELS[post.category] || post.category}
                   </span>
                   {post.publishedAt && (
-                    <span className="flex items-center gap-1.5 text-gray-400">
-                      <Calendar size={13} />
+                    <span className="flex items-center gap-1.5 text-gray-400 text-[11px]">
+                      <Calendar size={12} />
                       <time dateTime={post.publishedAt}>
                         {new Date(post.publishedAt).toLocaleDateString('en-US', {
                           month: 'short',
@@ -140,19 +140,19 @@ export const BlogCatalog: React.FC<BlogCatalogProps> = ({ posts }) => {
                 </div>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-semibold text-white group-hover:text-emerald-400 transition-colors tracking-tight">
+              <h2 className="text-lg sm:text-xl font-semibold text-white group-hover:text-[#D6544B] transition-colors tracking-tight">
                 <Link href={`/blog/${post.slug}`}>
                   <span className="absolute inset-0 z-0" />
                   {post.title}
                 </Link>
               </h2>
 
-              <p className="mt-2.5 text-sm sm:text-base text-gray-300 leading-relaxed font-normal">
+              <p className="mt-2 text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
                 {post.summary}
               </p>
 
               {/* Tags and CTA */}
-              <div className="mt-5 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-3">
+              <div className="mt-4 pt-3.5 border-t border-white/5 flex flex-wrap items-center justify-between gap-2.5">
                 <div className="flex flex-wrap items-center gap-1.5">
                   {post.tags.map((tag) => (
                     <span
@@ -165,7 +165,7 @@ export const BlogCatalog: React.FC<BlogCatalogProps> = ({ posts }) => {
                   ))}
                 </div>
 
-                <div className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-medium group-hover:translate-x-1 transition-transform">
+                <div className="inline-flex items-center gap-1.5 text-xs font-mono text-[#D6544B] font-medium group-hover:translate-x-1 transition-transform">
                   <span>Read Article</span>
                   <ArrowRight size={13} />
                 </div>

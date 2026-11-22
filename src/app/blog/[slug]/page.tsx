@@ -57,15 +57,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const content = await post.content();
 
   return (
-    <div className="min-h-screen bg-[#09090D] text-gray-100 flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div className="min-h-screen bg-[#09090D] text-gray-100 flex flex-col font-sans selection:bg-[#D6544B]/30 selection:text-white">
       <BlogHeader />
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-12 w-full space-y-12">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-8 w-full space-y-8">
         {/* Navigation Breadcrumb */}
         <div>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-emerald-400 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-gray-400 hover:text-[#D6544B] transition-colors"
           >
             <ArrowLeft size={13} />
             <span>Back to All Articles</span>
@@ -73,9 +73,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
 
         {/* Article Header */}
-        <header className="space-y-4 pb-8 border-b border-white/10">
+        <header className="space-y-3 pb-6 border-b border-white/10">
           <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-gray-400">
-            <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#D6544B]/10 text-[#D6544B] border border-[#D6544B]/20 font-medium">
               {post.category}
             </span>
 
@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Author Bio Card */}
         <div className="p-6 rounded-2xl border border-white/10 bg-[#111217] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-1">
-            <div className="text-xs font-mono uppercase text-emerald-400 tracking-wider">
+            <div className="text-xs font-mono uppercase text-[#D6544B] tracking-wider">
               Written by
             </div>
             <div className="text-lg font-semibold text-white font-display">
@@ -171,7 +171,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </a>
             <Link
               href="/#contact"
-              className="px-3.5 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-mono font-medium transition-colors"
+              className="px-3.5 py-2 rounded-xl bg-[#D6544B] hover:bg-[#BF433B] text-white text-xs font-mono font-medium transition-colors shadow-sm"
             >
               Contact
             </Link>

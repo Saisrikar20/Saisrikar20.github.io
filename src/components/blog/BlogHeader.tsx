@@ -17,10 +17,10 @@ export const BlogHeader: React.FC = () => {
           <div className="h-4 w-px bg-white/10" />
           <Link
             href="/blog"
-            className="flex items-center gap-2.5 text-sm sm:text-base font-semibold text-white tracking-tight group"
+            className="flex items-center gap-2 text-sm font-semibold text-white tracking-tight group"
           >
-            <span className="p-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:scale-105 transition-transform">
-              <BookOpen size={16} />
+            <span className="p-1 rounded-md bg-[#D6544B]/10 text-[#D6544B] border border-[#D6544B]/20 group-hover:scale-105 transition-transform">
+              <BookOpen size={15} />
             </span>
             <span className="font-display">Sai Srikar · Blog</span>
           </Link>
@@ -29,7 +29,7 @@ export const BlogHeader: React.FC = () => {
         <div className="flex items-center gap-3">
           <Link
             href="/#contact"
-            className="text-xs font-mono font-medium px-3.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition-all"
+            className="text-xs font-mono font-medium px-3.5 py-1.5 rounded-lg bg-[#D6544B] hover:bg-[#BF433B] text-white transition-all shadow-sm"
           >
             Get in Touch
           </Link>
