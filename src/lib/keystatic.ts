@@ -108,7 +108,7 @@ const DEFAULT_SKILLS = [
     slug: 'languages',
     entry: {
       category: 'Languages',
-      skills: ['Python', 'Java', 'C', 'JavaScript', 'TypeScript', 'SQL', 'PL/SQL', 'HTML/CSS'],
+      skills: ['Python', 'TypeScript', 'Java', 'C', 'SQL', 'PL/SQL'],
       order: 1,
     },
   },
@@ -146,7 +146,7 @@ const DEFAULT_SKILLS = [
     slug: 'tools',
     entry: {
       category: 'Tools & Databases',
-      skills: ['PostgreSQL', 'SQLite', 'Git', 'GitHub', 'Docker', 'Ollama', 'ChromaDB', 'PyCharm', 'Linux', 'VS Code'],
+      skills: ['PostgreSQL', 'SQLite', 'Git', 'GitHub', 'Docker', 'Ollama', 'ChromaDB', 'Bash', 'VirtualBox', 'Linux', 'VS Code'],
       order: 4,
     },
   },
@@ -204,14 +204,36 @@ const DEFAULT_CERTS = [
     },
   },
   {
-    slug: 'ethical-hacking-kali',
+    slug: 'google-bit-build',
     entry: {
-      title: 'Ethical Hacking with Kali Linux',
-      issuer: 'IBM',
-      date: 'Dec 2025',
-      description: 'Vulnerability assessment, packet analysis, penetration testing workflows, and payload inspection.',
+      title: 'Google Bit & Build',
+      issuer: 'Google Developer Groups',
+      date: 'Oct 2025',
+      description: 'Technical hackathon and engineering build sprint credential with Google developer platforms.',
       credentialUrl: '',
       order: 2,
+    },
+  },
+  {
+    slug: 'ml-foundations-calculus',
+    entry: {
+      title: 'Machine Learning Foundations: Calculus',
+      issuer: 'DeepLearning.AI / Coursera',
+      date: 'Sep 2025',
+      description: 'Multivariable calculus, gradient descent optimization, and loss function landscapes for neural networks.',
+      credentialUrl: '',
+      order: 3,
+    },
+  },
+  {
+    slug: 'intro-networking',
+    entry: {
+      title: 'Introduction to Networking',
+      issuer: 'Cisco / Coursera',
+      date: 'Aug 2025',
+      description: 'IP addressing, subnetting, TCP/IP protocol suite, network routing, and packet flow analysis.',
+      credentialUrl: '',
+      order: 4,
     },
   },
 ];
