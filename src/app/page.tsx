@@ -274,11 +274,11 @@ export default async function HomePage() {
               </div>
               <div className="learning-card hover-target">
                 <div className="learning-icon pulse">
-                  <i data-lucide="workflow"></i>
+                  <i data-lucide="bot"></i>
                 </div>
                 <div className="learning-info">
-                  <h4>MLOps</h4>
-                  <p>Model deployment, pipelines, and taking ML projects from notebook to production.</p>
+                  <h4>Autonomous AI Agents</h4>
+                  <p>Multi-agent orchestration, tool execution loops, and secure runtime sandboxes for agentic workflows.</p>
                 </div>
               </div>
               <div className="learning-card hover-target">
